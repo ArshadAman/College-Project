@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 # Other Imports
 from django.contrib.auth.models import User
@@ -47,8 +48,8 @@ class getProjects(generics.ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializers
     pagination_class = PageNumberPagination
-    # filter_backends = (SearchFilter, OrderingFilter)
-    # search_fields = ('title', 'desc', 'owner__name', 'owner__username')
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('title', 'desc', 'owner__name', 'owner__username')
 
 @api_view(['GET'])
 def topProjects(request):

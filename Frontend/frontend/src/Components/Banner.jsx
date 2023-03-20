@@ -8,7 +8,7 @@ function Banner(props) {
         <form action="" className="space-x-2 hidden md:block">
           <input
             type="text"
-            placeholder={`Search by ${props.name} name`}
+            placeholder={`Search by ${props.name} name`} 
             size={60}
             className="px-8 py-[12px] outline-none absolute bottom-[50%] opacity-80 left-[31%] rounded"
           />
