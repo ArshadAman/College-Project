@@ -48,9 +48,9 @@ function Nav() {
             <li className="text-sm font-semibold">
             <Link to="/developers">DEVELOPERS</Link>
             </li>
-            <li className="text-sm font-semibold">
+            {/* <li className="text-sm font-semibold">
             <Link to="/">INBOX</Link>
-            </li>
+            </li> */}
             <button className="text-sm font-semibold"><Link to="/">LOGIN/SIGNUP</Link></button>
             <img src={avatar} alt="avatar" className="h-10" />
           </ul>
