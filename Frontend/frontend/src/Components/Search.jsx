@@ -1,48 +1,91 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import avatar from "../assets/avatar.png";
+import { useLocation } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
-function ProjectHomeCards() {
+function Search() {
+  const [loading, setLoading] = useState(false);
+  const [blur, setBlur] = useState(false);
+
+  // Spinner
+  const override = {
+    display: "block",
+    margin: "0 auto",
+  };
+
   //UseState and useEffect
   const [projects, setProjects] = useState([]);
   const [devs, setDevs] = useState([]);
+  let { state } = useLocation();
+
+  const getProjects = async () => {
+    setLoading(true);
+    setBlur(true);
+    await axios
+      .get(`http://127.0.0.1:8000/api/projects/?search=${state.search}`)
+      .then((res) => {
+        setProjects(res.data["results"]);
+      });
+    setLoading(false);
+    setBlur(false);
+  };
+  const getUsers = async () => {
+    setLoading(true);
+    setBlur(true);
+    axios
+      .get(
+        `http://127.0.0.1:8000/api/users/get-profile/?search=${state.search}`
+      )
+      .then((res) => {
+        setDevs(res.data["results"]);
+      });
+    setLoading(false);
+    setBlur(false);
+  };
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/top-rated-projects/").then((res) => {
-      setProjects(res.data);
-    });
-  }, []);
+    getProjects();
+  }, [state.search]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/users/top-profile/").then((res) => {
-      setDevs(res.data);
-    });
-  }, []);
+    getUsers();
+  }, [state.search]);
 
-  function showMe(nameID, imgId){
+  function showMe(nameID, imgId) {
     let name = document.getElementById(nameID);
     let image = document.getElementById(imgId);
-    name.style.visibility ="visible";
-    image.style.filter = "brightness(30%)"
+    name.style.visibility = "visible";
+    image.style.filter = "brightness(30%)";
   }
-  function HideMe(nameID, imgId){
+  function HideMe(nameID, imgId) {
     let name = document.getElementById(nameID);
     let image = document.getElementById(imgId);
-    image.style.filter = "brightness(100%)"
-    name.style.visibility ="hidden";
+    image.style.filter = "brightness(100%)";
+    name.style.visibility = "hidden";
   }
   return (
     <div className="flex flex-col items-center justify-center md:py-20 py-10">
-      <h1 className="text-3xl text-center pb-12">Top Projects and Developers</h1>
-      <div className="cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-6">
-      {projects.map((project, index) => (
-            <div
+      <div>
+        <HashLoader
+          color={`#3e52c6`}
+          loading={loading}
+          cssOverride={override}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+      <h1 className="text-3xl text-center pb-12">Search Results</h1>
+      <div className="cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-6 place">
+        {projects.map((project, index) => (
+          <div
             className="card w-80 bg-white md:space-y-4 space-y-2 border backdrop-blur-sm backdrop-filter bg-opacity-10 pb-2  rounded-md shadow-md"
             key={project.id}
           >
             <div className="image space-y-3 rounded-md text-white">
               <img
-                src={`http://127.0.0.1:8000${project.featured_image}`}
+                src={`${project.featured_image}`}
                 alt={project.title}
                 className="object-cover rounded-t-md h-[270px]"
                 onMouseEnter={() => {
@@ -79,7 +122,7 @@ function ProjectHomeCards() {
               <div className="dev flex items-center space-x-2">
                 <img
                   src={
-                    project.owner ? `http://127.0.0.1:8000${project.owner.profile_image}` : avatar
+                    project.owner ? `${project.owner.profile_image}` : avatar
                   }
                   alt=""
                   className="rounded-full w-[40px] h-[40px]"
@@ -95,23 +138,24 @@ function ProjectHomeCards() {
               </p>
             </div>
           </div>
-          ))}
-      
-      
-      {devs.map((dev, index)=>(
-          <div className="card w-64 bg-white md:space-y-4 my-10" key={index+2}>
+        ))}
+        {devs.map((dev, index) => (
+          <div
+            className="card w-64 bg-white md:space-y-4 my-10"
+            key={index + 2}
+          >
             <div className="image shadow-md space-y-3 rounded-full backdrop-blur-sm backdrop-filter bg-opacity-10 text-white">
               <img
-                src={`http://127.0.0.1:8000${dev.profile_image}`}
+                src={`${dev.profile_image}`}
                 alt={dev.name}
                 className="object-cover w-64 h-64 rounded-full"
                 onMouseEnter={() => {
-                  showMe(`dpname${index + 2}`, `dimage${index+2}`);
+                  showMe(`dpname${index + 2}`, `dimage${index + 2}`);
                 }}
                 onMouseLeave={() => {
-                  HideMe(`dpname${index + 2}`, `dimage${index+2}`);
+                  HideMe(`dpname${index + 2}`, `dimage${index + 2}`);
                 }}
-                id={`dimage${index+2}`}
+                id={`dimage${index + 2}`}
               />
 
               <a
@@ -119,10 +163,10 @@ function ProjectHomeCards() {
                 className="absolute bottom-[35%] left-[20%] p-3 invisible"
                 id={`dpname${index + 2}`}
                 onMouseEnter={() => {
-                  showMe(`dpname${index + 2}`, `dimage${index+2}`);
+                  showMe(`dpname${index + 2}`, `dimage${index + 2}`);
                 }}
                 onMouseLeave={() => {
-                  HideMe(`dpname${index + 2}`, `dimage${index+2}`);
+                  HideMe(`dpname${index + 2}`, `dimage${index + 2}`);
                 }}
               >
                 <h2 className="text-2xl text-center">{dev.name}</h2>
@@ -138,4 +182,4 @@ function ProjectHomeCards() {
   );
 }
 
-export default ProjectHomeCards;
+export default Search;

@@ -51,8 +51,6 @@ def loginPage(request):
     page = 'login'
     if request.user.is_authenticated:
         return redirect('profiles')
-
-
     if request.method == "POST":
         username = request.POST['username'].lower()
         password = request.POST['password']
@@ -61,7 +59,7 @@ def loginPage(request):
             user = User.objects.get(username=username)
         except:
             messages.error(request, "Username doesn't exits")
-        
+
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
@@ -69,7 +67,7 @@ def loginPage(request):
             return redirect(request.GET['next'] if 'next' in request.GET else 'account')
         else:
             messages.error(request, "Incorrect Password..... Try to remember otherwise fuck off....")
-    
+
     return render(request, 'users/login_register.html')
 
 
@@ -91,7 +89,7 @@ def regiaterUser(request):
             user.save()
 
             messages.success(request, 'User account is created...')
-            
+
             login(request, user)
             return redirect('edit-account')
         # else:

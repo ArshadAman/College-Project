@@ -4,6 +4,7 @@ import Banner from "./Banner";
 import projectV from "../assets/project.mp4";
 import axios from "axios";
 import HashLoader from "react-spinners/HashLoader";
+import { useLocation } from "react-router-dom";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -18,6 +19,7 @@ function Projects() {
     display: "block",
     margin: "0 auto",
   };
+
 
   const getData = async () => {
     setLoading(true);
@@ -65,7 +67,7 @@ function Projects() {
             color={`#3e52c6`}
             loading={loading}
             cssOverride={override}
-            size={90}
+            size={50}
             aria-label="Loading Spinner"
             data-testid="loader"
           />

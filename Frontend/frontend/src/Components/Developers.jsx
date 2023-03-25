@@ -66,7 +66,7 @@ function Developers() {
             color={`#3e52c6`}
             loading={loading}
             cssOverride={override}
-            size={90}
+            size={50}
             aria-label="Loading Spinner"
             data-testid="loader"
           />

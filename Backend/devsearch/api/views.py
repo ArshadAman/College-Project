@@ -174,17 +174,23 @@ def UpdateProject(request):
 @api_view(['POST'])
 def Signup(request):
     data = request.data
-
-    new_user = User.objects.create(
-        username = data['username'],
-        first_name = data['name'],
-        email = data['email'],
-        password = data['password'],
-    )
-    new_user.save()
-    return Response({
-        "Status": "User Added"
-    })
+    username = data['username']
+    try:
+        user = User.objects.get(username=username)
+        return Response({
+                "Error": "User already in the database"
+            })
+    except:
+        new_user = User.objects.create(
+            username = data['username'],
+            first_name = data['name'],
+            email = data['email'],
+            password = data['password'],
+        )
+        new_user.save()
+        return Response({
+            "Status": "User Added"
+        })
 
 # UPDATE
 @api_view(['PUT'])
@@ -242,6 +248,8 @@ class getProfiles(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializers
     pagination_class = PageNumberPagination
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('name', 'username', 'location', 'short_intro', 'bio')
 
 # @api_view(['GET'])
 # def getProfiles(request):
@@ -254,8 +262,6 @@ def topProfile(request):
     top_profile = Profile.objects.annotate(num_project = models.Count('project')).order_by('-num_project')[:4]
     serializer = ProfileSerializers(top_profile, many=True)
     return Response(serializer.data)
-
-
 
 # SKILLS CRUD
 # Create

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
-import logo from "../assets/logo.png";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import avatar from "../assets/avatar.png";
 
 function Nav() {
   const [screenPos, setScreenPos] = useState(0);
-  const [color, setColor] = useState("");
-  const [opacity, setOpacity] = useState(1);
+  const [Sterm, setSterm] = useState("");
 
   useEffect(() => {
     function handleScroll() {
@@ -17,13 +15,24 @@ function Nav() {
     handleScroll();
   });
 
+  const handleEnter = () =>{
+    let btn = document.getElementById("search-btn");
+    window.addEventListener("keydown", (event)=>{
+      if (event.key === 'Enter') {
+        btn.click();
+      }
+    })
+  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+  const handleInput = (event) => {
+    setSterm(event.target.value);
+  };
+
   useEffect(() => {
     if (screenPos >= 10) {
-      setColor("white");
-      setOpacity(0.4);
     } else if (screenPos < 10) {
-      setColor("white");
-      setOpacity(1);
     }
   }, [screenPos]);
 
@@ -32,10 +41,29 @@ function Nav() {
       className={`sticky top-0 z-10 backdrop-filter backdrop-blur-sm bg-opacity-40 bg-[#fff] firefox:bg-opacity-90 text-black`}
       id="nav"
     >
-      <div className="upper flex justify-between px-2 py-3 items-center">
+      <div className="flex justify-between px-2 py-3 items-center">
         <div className="right">
-          {/* <img src={logo} alt="logo" className="h-14 invert-0" /> */}
-          <a href="/"><h1 className="text-3xl">DevXplore</h1></a>
+          <a href="/">
+            <h1 className="text-3xl">DevXplore</h1>
+          </a>
+        </div>
+        <div className="middle">
+          <form
+            className="space-x-2 hidden md:block ml-36"
+            onSubmit={handleSubmit}
+          >
+            <input
+              type="text"
+              placeholder={`Search your favorite developer and projects`}
+              size={60}
+              className="px-8 py-[10px] outline-none border-2 rounded"
+              onChange={handleInput}
+              onKeyDown={handleEnter}
+            />
+            <Link to="/search" state={{ search: Sterm }} id="search-btn">
+              <i className="fas fa-search fa-lg bg-[#3e52c6] text-[#fff] borderz px-[8px] py-[10px] outline-none rounded-full"></i>
+            </Link>
+          </form>
         </div>
         <div className="left flex items-center space-x-3">
           <ul className="lg:flex space-x-5 items-center hidden">
@@ -43,15 +71,14 @@ function Nav() {
               <Link to="/">HOME</Link>
             </li>
             <li className="text-sm font-semibold">
-            <Link to="/projects">PROJECTS</Link>
+              <Link to="/projects">PROJECTS</Link>
             </li>
             <li className="text-sm font-semibold">
-            <Link to="/developers">DEVELOPERS</Link>
+              <Link to="/developers">DEVELOPERS</Link>
             </li>
-            {/* <li className="text-sm font-semibold">
-            <Link to="/">INBOX</Link>
-            </li> */}
-            <button className="text-sm font-semibold"><Link to="/">LOGIN/SIGNUP</Link></button>
+            <button className="text-sm font-semibold">
+              <Link to="/login">LOGIN</Link>
+            </button>
             <img src={avatar} alt="avatar" className="h-10" />
           </ul>
           <div className="lines flex flex-col space-y-1 md:hidden">
@@ -61,7 +88,6 @@ function Nav() {
           </div>
         </div>
       </div>
-      <Outlet/>
     </nav>
   );
 }
