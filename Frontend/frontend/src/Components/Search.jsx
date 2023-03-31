@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import avatar from "../assets/avatar.png";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 
 function Search() {
@@ -35,7 +35,7 @@ function Search() {
     setBlur(true);
     axios
       .get(
-        `http://127.0.0.1:8000/api/users/get-profile/?search=${state.search}`
+        `http://127.0.0.1:8000/api/users/get-profiles/?search=${state.search}`
       )
       .then((res) => {
         setDevs(res.data["results"]);
@@ -77,7 +77,7 @@ function Search() {
         />
       </div>
       <h1 className="text-3xl text-center pb-12">Search Results</h1>
-      <div className="cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-6 place">
+      <div className={`cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-6 place ${blur?'blur-sm':'blur-none'}`}>
         {projects.map((project, index) => (
           <div
             className="card w-80 bg-white md:space-y-4 space-y-2 border backdrop-blur-sm backdrop-filter bg-opacity-10 pb-2  rounded-md shadow-md"
@@ -119,20 +119,22 @@ function Search() {
               </a>
             </div>
             <div className="flex items-center justify-between mx-2">
-              <div className="dev flex items-center space-x-2">
-                <img
-                  src={
-                    project.owner ? `${project.owner.profile_image}` : avatar
-                  }
-                  alt=""
-                  className="rounded-full w-[40px] h-[40px]"
-                />
-                <a href="#" id="dev1">
-                  <h2 className="text-md">
-                    {project.owner ? project.owner.name : "Unknown"}
-                  </h2>
-                </a>
-              </div>
+              <Link to={`/dev-profile/${project.owner.id}`}>
+                <div className="dev flex items-center space-x-2">
+                  <img
+                    src={
+                      project.owner ? `${project.owner.profile_image}` : avatar
+                    }
+                    alt=""
+                    className="rounded-full w-[40px] h-[40px]"
+                  />
+                  <a href="#" id="dev1">
+                    <h2 className="text-md">
+                      {project.owner ? project.owner.name : "Unknown"}
+                    </h2>
+                  </a>
+                </div>
+              </Link>
               <p className="voteRatio text-right">
                 {project.vote_ratio}% Rated
               </p>
@@ -140,42 +142,44 @@ function Search() {
           </div>
         ))}
         {devs.map((dev, index) => (
-          <div
-            className="card w-64 bg-white md:space-y-4 my-10"
-            key={index + 2}
-          >
-            <div className="image shadow-md space-y-3 rounded-full backdrop-blur-sm backdrop-filter bg-opacity-10 text-white">
-              <img
-                src={`${dev.profile_image}`}
-                alt={dev.name}
-                className="object-cover w-64 h-64 rounded-full"
-                onMouseEnter={() => {
-                  showMe(`dpname${index + 2}`, `dimage${index + 2}`);
-                }}
-                onMouseLeave={() => {
-                  HideMe(`dpname${index + 2}`, `dimage${index + 2}`);
-                }}
-                id={`dimage${index + 2}`}
-              />
+          <Link to={`/dev-profile/${dev.id}`}>
+            <div
+              className="card w-64 bg-white md:space-y-4 my-10"
+              key={index + 2}
+            >
+              <div className="image shadow-md space-y-3 rounded-full backdrop-blur-sm backdrop-filter bg-opacity-10 text-white">
+                <img
+                  src={`${dev.profile_image}`}
+                  alt={dev.name}
+                  className="object-cover w-64 h-64 rounded-full"
+                  onMouseEnter={() => {
+                    showMe(`dpname${index + 2}`, `dimage${index + 2}`);
+                  }}
+                  onMouseLeave={() => {
+                    HideMe(`dpname${index + 2}`, `dimage${index + 2}`);
+                  }}
+                  id={`dimage${index + 2}`}
+                />
 
-              <a
-                href="#"
-                className="absolute bottom-[35%] left-[20%] p-3 invisible"
-                id={`dpname${index + 2}`}
-                onMouseEnter={() => {
-                  showMe(`dpname${index + 2}`, `dimage${index + 2}`);
-                }}
-                onMouseLeave={() => {
-                  HideMe(`dpname${index + 2}`, `dimage${index + 2}`);
-                }}
-              >
-                <h2 className="text-2xl text-center">{dev.name}</h2>
-                <div className="flex space-x-2 text-sm justify-center">
-                  <p>{dev.short_intro}</p>
-                </div>
-              </a>
+                <Link
+                  to={`/dev-profile/${dev.id}`}
+                  className="absolute bottom-[35%] left-[20%] p-3 invisible"
+                  id={`dpname${index + 2}`}
+                  onMouseEnter={() => {
+                    showMe(`dpname${index + 2}`, `dimage${index + 2}`);
+                  }}
+                  onMouseLeave={() => {
+                    HideMe(`dpname${index + 2}`, `dimage${index + 2}`);
+                  }}
+                >
+                  <h2 className="text-2xl text-center">{dev.name}</h2>
+                  <div className="flex space-x-2 text-sm justify-center">
+                    <p>{dev.short_intro}</p>
+                  </div>
+                </Link>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import avatar from "../assets/avatar.png";
+import { Link } from "react-router-dom";
 
-function ProjectHomeCards() {
+function ProjectHomeCards({user}) {
   //UseState and useEffect
   const [projects, setProjects] = useState([]);
   const [devs, setDevs] = useState([]);
@@ -54,8 +55,7 @@ function ProjectHomeCards() {
                 id={`image${index + 1}`}
               />
 
-              <a
-                href="#"
+              <Link to={''}
                 className="absolute bottom-[50%] left-0 right-0 p-3 invisible"
                 id={`pname${index + 1}`}
                 onMouseEnter={() => {
@@ -73,9 +73,10 @@ function ProjectHomeCards() {
                     ))}
                   </ul>
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="flex items-center justify-between mx-2">
+              <Link to={`${user.id === project.owner.id?'/profile':`/dev-profile/${project.owner.id}`}`}>
               <div className="dev flex items-center space-x-2">
                 <img
                   src={
@@ -84,12 +85,13 @@ function ProjectHomeCards() {
                   alt=""
                   className="rounded-full w-[40px] h-[40px]"
                 />
-                <a href="#" id="dev1">
+                <Link to={`${user.id === project.owner.id?'/profile':`/dev-profile/${project.owner.id}`}`} id="dev1">
                   <h2 className="text-md">
                     {project.owner ? project.owner.name : "Unknown"}
                   </h2>
-                </a>
+                </Link>
               </div>
+              </Link>
               <p className="voteRatio text-right">
                 {project.vote_ratio}% Rated
               </p>
@@ -99,7 +101,8 @@ function ProjectHomeCards() {
       
       
       {devs.map((dev, index)=>(
-          <div className="card w-64 bg-white md:space-y-4 my-10" key={index+2}>
+        <Link to={`${user.id === dev.id?'/profile':`/dev-profile/${dev.id}`}`}>
+            <div className="card w-64 bg-white md:space-y-4 my-10" key={index+2}>
             <div className="image shadow-md space-y-3 rounded-full backdrop-blur-sm backdrop-filter bg-opacity-10 text-white">
               <img
                 src={`http://127.0.0.1:8000${dev.profile_image}`}
@@ -114,8 +117,8 @@ function ProjectHomeCards() {
                 id={`dimage${index+2}`}
               />
 
-              <a
-                href="#"
+              <Link
+                to={`${user.id === dev.id?'/profile':`/dev-profile/${dev.id}`}`}
                 className="absolute bottom-[35%] left-[20%] p-3 invisible"
                 id={`dpname${index + 2}`}
                 onMouseEnter={() => {
@@ -129,9 +132,10 @@ function ProjectHomeCards() {
                 <div className="flex space-x-2 text-sm justify-center">
                   <p>{dev.short_intro}</p>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
+        </Link>
         ))}
       </div>
     </div>

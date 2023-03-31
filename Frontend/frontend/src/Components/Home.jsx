@@ -5,11 +5,11 @@ import bannv from "../assets/banner.mp4";
 import ProjectHomeCards from './ProjectHomeCards'
 
 
-function Home() {
+function Home({user}) {
   return (
     <div className='bg-white'>
         <Banner name="developer's or project" video ={bannv} />
-        <ProjectHomeCards/>
+        <ProjectHomeCards user={user}/>
         <About/>
     </div>
   )

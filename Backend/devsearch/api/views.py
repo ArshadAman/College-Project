@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
+from django.contrib.auth.hashers import make_password
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -30,20 +31,12 @@ def getRoutes(request):
         {'POST': '/api/users/token/refresh'},
         {'GET': '/api/users/get-profile'},
         {'GET': '/api/users/top-profile/'},
-
-        {'GET': '/api/search/search_query='},
     ]
 
     return Response(routes)
 
 # PROJECT RELATED VIEWS
 # Read
-# @api_view(['GET'])
-# def getProjects(request):
-#     projects = Project.objects.all()
-#     serializer = ProjectSerializers(projects, many= True)
-#     return Response(serializer.data)
-
 class getProjects(generics.ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializers
@@ -55,12 +48,6 @@ class getProjects(generics.ListAPIView):
 def topProjects(request):
     projects = Project.objects.all().order_by("-vote_ratio")[:4]
     serializer = ProjectSerializers(projects, many= True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def Search(request, search_query):
-    projects,search_query = searchProject(request, search_query)
-    serializer = ProjectSerializers(projects, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -178,14 +165,14 @@ def Signup(request):
     try:
         user = User.objects.get(username=username)
         return Response({
-                "Error": "User already in the database"
+                "Error": f'{user} already in the database'
             })
     except:
         new_user = User.objects.create(
             username = data['username'],
             first_name = data['name'],
             email = data['email'],
-            password = data['password'],
+            password = make_password(data['password']),
         )
         new_user.save()
         return Response({
@@ -198,9 +185,7 @@ def Signup(request):
 def UpdateProfile(request):
     user = request.user.profile
     data = request.data
-
-    # Updating the User data
-
+    
     # Updating Username
     new_username = data['username']
     if User.objects.filter(username = new_username):
@@ -251,11 +236,25 @@ class getProfiles(generics.ListAPIView):
     filter_backends = (SearchFilter, OrderingFilter)
     search_fields = ('name', 'username', 'location', 'short_intro', 'bio')
 
-# @api_view(['GET'])
-# def getProfiles(request):
-#     profiles = Profile.objects.all()
-#     serializer = ProfileSerializers(profiles, many = True)
-#     return Response(serializer.data)
+@api_view(['GET'])
+def getSingleProfile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    projects = Project.objects.filter(owner_id = pk)
+    project_serializer = ProjectSerializers(projects, many=True)
+    serializer = ProfileSerializers(profile, many=False)
+    return Response([serializer.data, project_serializer.data])
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserProfile(request):
+    profile = Profile.objects.get(user = request.user)
+    print(profile)
+    projects = Project.objects.filter(owner_id = profile.id)
+    # print(projects)
+    project_serializer = ProjectSerializers(projects, many=True)
+    serializer = ProfileSerializers(profile, many=False)
+    return Response([serializer.data, project_serializer.data])
+    
 
 @api_view(['GET'])
 def topProfile(request):

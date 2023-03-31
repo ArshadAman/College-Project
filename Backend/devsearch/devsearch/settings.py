@@ -52,7 +52,7 @@ from datetime import timedelta
 ...
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
@@ -171,7 +171,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'arshadaman.tech@gmail.com'
-EMAIL_HOST_PASSWORD = 'Rejection breads Obsession'
+EMAIL_HOST_PASSWORD = 'hyohtyyjhxzyjeam'
 
 CORS_ALLOW_ALL_ORIGINS = True
 

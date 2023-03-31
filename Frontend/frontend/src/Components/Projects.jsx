@@ -4,7 +4,7 @@ import Banner from "./Banner";
 import projectV from "../assets/project.mp4";
 import axios from "axios";
 import HashLoader from "react-spinners/HashLoader";
-import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -117,7 +117,7 @@ function Projects() {
                   </div>
                 </a>
               </div>
-              <div className="flex items-center justify-between mx-2">
+              <Link to={`/dev-profile/${project.owner.id}`} className="flex items-center justify-between mx-2">
                 <div className="dev flex items-center space-x-2">
                   <img
                     src={
@@ -126,16 +126,16 @@ function Projects() {
                     alt=""
                     className="rounded-full w-[40px] h-[40px]"
                   />
-                  <a href="#" id="dev1">
+                  <Link to={`/dev-profile/${project.owner.id}`} id="dev1">
                     <h2 className="text-md">
                       {project.owner ? project.owner.name : "Unknown"}
                     </h2>
-                  </a>
+                  </Link>
                 </div>
                 <p className="voteRatio text-right">
                   {project.vote_ratio}% Rated
                 </p>
-              </div>
+              </Link>
             </div>
           ))}
         </div>

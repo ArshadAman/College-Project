@@ -5,7 +5,7 @@ from django.conf import settings
 # Reciever Decorators
 # from django.dispatch import receiver
 
-# User and Profile Model 
+# User and Profile Model
 from django.contrib.auth.models import User
 from .models import Profile
 
@@ -14,6 +14,7 @@ from .models import Profile
 
 # @receiver(post_save, sender=Profile)
 def createProfile(sender, instance, created, **kwargs):
+    name_of_user = ""
     if created:
         user = instance
         profile = Profile.objects.create(
@@ -22,10 +23,11 @@ def createProfile(sender, instance, created, **kwargs):
             email = user.email,
             name = user.first_name,
         )
+        name_of_user = user.first_name
         profile.save()
 
-        subject = 'WELCOME TO DEV SEARCH'
-        message = 'We are glad to have here!\n Kindly confirm the email by clicking this link: www.google.com'
+        subject = 'Thank you for joining DevXplore'
+        message = f"Dear {name_of_user},\n\nWe wanted to take a moment to thank you for joining DevXplore. We’re thrilled to have you as part of our community.\n\nWe hope you find our website helpful and informative. If you have any questions or feedback, please don’t hesitate to reach out.\n\nBest Regards,\n\nAdmin@DevXplore"
 
         send_mail(
             subject,

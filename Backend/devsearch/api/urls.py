@@ -24,14 +24,13 @@ urlpatterns = [
     # User actions
     path('users/signup/', views.Signup),
     path('users/update-profile/', views.UpdateProfile),
-    path('users/get-profile/', views.getProfiles.as_view()),
+    path('users/get-profile/', views.getUserProfile),
+    path('users/get-profiles/', views.getProfiles.as_view()),
     path('users/top-profile/', views.topProfile),
+    path('users/profile-detail/<str:pk>/', views.getSingleProfile),
 
     # Add Skills
     path('users/add-skills/', views.addSkills),
     path('users/edit-skills/', views.editSkills),
     path('users/delete-skills/', views.deleteSkills),
-
-    #Search
-    path('users/search/<str:search_query>', views.Search),
 ]

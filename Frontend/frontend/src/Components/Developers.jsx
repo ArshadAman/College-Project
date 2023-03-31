@@ -4,8 +4,9 @@ import Banner from "./Banner";
 import devV from "../assets/developers.mp4";
 import axios from "axios";
 import HashLoader from "react-spinners/HashLoader";
+import { Link } from "react-router-dom";
 
-function Developers() {
+function Developers({user}) {
   const link = 'http://127.0.0.1:8000/';
   const [developers, setDevelopers] = useState([]);
   const [next, setNext] = useState("");
@@ -24,7 +25,7 @@ function Developers() {
     setLoading(true);
     setBlur(true);
     await axios
-      .get(`http://127.0.0.1:8000/api/users/get-profile/?page=${page}`)
+      .get(`http://127.0.0.1:8000/api/users/get-profiles/?page=${page}`)
       .then((res) => {
         setDevelopers(res.data["results"]);
         setLoading(false);
@@ -75,7 +76,7 @@ function Developers() {
             blur == true ? "blur-sm" : "blur-0"
           }`}>
           {developers.map((deve, index) => (
-          <div className="card w-60 bg-white md:space-y-4 space-y-2" key={index+1}>
+          <Link to={`${user.id === deve.id?'/profile':`/dev-profile/${deve.id}`}`} className="card w-60 bg-white md:space-y-4 space-y-2" key={index+1}>
             <div className="image shadow-md space-y-3 rounded-full backdrop-blur-sm backdrop-filter bg-opacity-10 text-white">
               <img
                 src={`${deve.profile_image}`}
@@ -90,8 +91,8 @@ function Developers() {
                 id={`image${index + 1}`}
               />
 
-              <a
-                href="#"
+              <Link
+                to={`${user.id === deve.id?'/profile':`/dev-profile/${deve.id}`}`}
                 className="absolute bottom-[35%] left-[20%] p-3 invisible"
                 id={`pname${index + 1}`}
                 onMouseEnter={() => {
@@ -107,9 +108,9 @@ function Developers() {
                 {deve.short_intro}
                 </p>
                 </div>
-              </a>
+              </Link>
             </div>
-          </div>
+          </Link>
           ))}
         </div>
       </div>
