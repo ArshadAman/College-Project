@@ -16,7 +16,7 @@ urlpatterns = [
     path('', views.getRoutes),
     path('projects/', views.getProjects.as_view()),
     path('projects/<str:pk>/', views.getProject),
-    path('project-vote/', views.projectVote),
+    path('projects/<str:pk>/vote/', views.projectVote),
     path('add-project/', views.createProject),
     path('delete-project/delete/', views.deleteProject),
     path('top-rated-projects/', views.topProjects),

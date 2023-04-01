@@ -37,7 +37,8 @@ function ProjectHomeCards({user}) {
       <h1 className="text-3xl text-center pb-12">Top Projects and Developers</h1>
       <div className="cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-6">
       {projects.map((project, index) => (
-            <div
+            <Link
+            to={`/project-details/${project.id}`}
             className="card w-80 bg-white md:space-y-4 space-y-2 border backdrop-blur-sm backdrop-filter bg-opacity-10 pb-2  rounded-md shadow-md"
             key={project.id}
           >
@@ -55,7 +56,7 @@ function ProjectHomeCards({user}) {
                 id={`image${index + 1}`}
               />
 
-              <Link to={''}
+              <Link to={`/project-details/${project.id}`}
                 className="absolute bottom-[50%] left-0 right-0 p-3 invisible"
                 id={`pname${index + 1}`}
                 onMouseEnter={() => {
@@ -96,7 +97,7 @@ function ProjectHomeCards({user}) {
                 {project.vote_ratio}% Rated
               </p>
             </div>
-          </div>
+          </Link>
           ))}
       
       

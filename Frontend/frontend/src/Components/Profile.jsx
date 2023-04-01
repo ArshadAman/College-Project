@@ -5,7 +5,7 @@ import { getToken } from "../localStorage";
 import edit from "../assets/edit.png";
 import HashLoader from "react-spinners/HashLoader";
 
-function Profile({userdata, projects, loading, blur}) {
+function Profile({user, projects, loading, blur}) {
 
   // Spinner
   const override = {
@@ -47,7 +47,7 @@ function Profile({userdata, projects, loading, blur}) {
         <div className="left w-1/3">
           <div className="profile_pic relative bottom-20 left-40">
             <img
-              src={`http://127.0.0.1:8000${userdata.profile_image}`}
+              src={`http://127.0.0.1:8000${user.profile_image}`}
               alt=""
               className="w-44 h-44 rounded-full border"
               defer
@@ -61,31 +61,31 @@ function Profile({userdata, projects, loading, blur}) {
           </Link>
           <div className="profile_details py-24">
             <div className="heading flex flex-col items-center">
-              <h1 className="text-3xl font-semibold">{userdata.name}</h1>
-              <h2 className="text-xl">{userdata.short_intro}</h2>
-              <h2 className="text-lg`">@{userdata.username}</h2>
+              <h1 className="text-3xl font-semibold">{user.name}</h1>
+              <h2 className="text-xl">{user.short_intro}</h2>
+              <h2 className="text-lg`">@{user.username}</h2>
             </div>
 
             <div className="social_links space-x-6 py-5 flex justify-center">
-              <a href={`https://${userdata.social_github}`} target="_blank">
+              <a href={`https://${user.social_github}`} target="_blank">
                 <i class="fab fa-github text-3xl"></i>
               </a>
-              <a href={`https://${userdata.social_linkedin}`} target="_blank">
+              <a href={`https://${user.social_linkedin}`} target="_blank">
                 <i class="fab fa-linkedin text-3xl text-[#0963bf]"></i>
               </a>
-              <a href={`https://${userdata.social_twitter}`} target="_blank">
+              <a href={`https://${user.social_twitter}`} target="_blank">
                 <i class="fab fa-twitter text-3xl text-[#1d9bf0]"></i>
               </a>
-              <a href={`https://${userdata.social_instagram}`} target="_blank">
+              <a href={`https://${user.social_instagram}`} target="_blank">
                 <i class="fab fa-instagram text-3xl text-[#ff3040]"></i>
               </a>
-              <a href={`${userdata.social_website}`} target="_blank">
+              <a href={`${user.social_website}`} target="_blank">
                 <i class="fas fa-globe text-3xl"></i>
               </a>
             </div>
 
             <div className="about">
-              <p className="px-16">{userdata.bio}</p>
+              <p className="px-16">{user.bio}</p>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@ function Profile({userdata, projects, loading, blur}) {
                 />
 
                 <Link
-                  to={""}
+                  to={`/project-details/${project.id}`}
                   className="absolute top-[40%] left-[40%] right-[50%]"
                 >
                   View More

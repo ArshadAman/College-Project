@@ -79,7 +79,8 @@ function Search() {
       <h1 className="text-3xl text-center pb-12">Search Results</h1>
       <div className={`cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-6 place ${blur?'blur-sm':'blur-none'}`}>
         {projects.map((project, index) => (
-          <div
+          <Link
+          to={`/project-details/${project.id}`}
             className="card w-80 bg-white md:space-y-4 space-y-2 border backdrop-blur-sm backdrop-filter bg-opacity-10 pb-2  rounded-md shadow-md"
             key={project.id}
           >
@@ -97,8 +98,8 @@ function Search() {
                 id={`image${index + 1}`}
               />
 
-              <a
-                href="#"
+              <Link
+                to={`/project-details/${project.id}`}
                 className="absolute bottom-[50%] left-0 right-0 p-3 invisible"
                 id={`pname${index + 1}`}
                 onMouseEnter={() => {
@@ -116,7 +117,7 @@ function Search() {
                     ))}
                   </ul>
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="flex items-center justify-between mx-2">
               <Link to={`/dev-profile/${project.owner.id}`}>
@@ -128,18 +129,18 @@ function Search() {
                     alt=""
                     className="rounded-full w-[40px] h-[40px]"
                   />
-                  <a href="#" id="dev1">
+                  <p id="dev1">
                     <h2 className="text-md">
                       {project.owner ? project.owner.name : "Unknown"}
                     </h2>
-                  </a>
+                  </p>
                 </div>
               </Link>
               <p className="voteRatio text-right">
                 {project.vote_ratio}% Rated
               </p>
             </div>
-          </div>
+          </Link>
         ))}
         {devs.map((dev, index) => (
           <Link to={`/dev-profile/${dev.id}`}>

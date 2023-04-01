@@ -53,31 +53,32 @@ def topProjects(request):
 @api_view(['GET'])
 def getProject(request, pk):
     project = Project.objects.get(id=pk)
-    serializer = ProjectSerializers(project, many=True)
-    return Response(serializer.data)
+    serializer = ProjectSerializers(project, many=False)
+    return Response([serializer.data])
 
 # Create
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def projectVote(request):
+def projectVote(request, pk):
     user = request.user.profile
     data = request.data
-    project = Project.objects.get(id = request.data['pro_id'])
+    print(data)
+    project = Project.objects.get(id = pk)
     if project.owner == user:
         return Response({
             "Status": "You cannot vote your own project."
         })
-    if user.id in project.reviewers:
-        return Response({
-            "Status": "You have already submmited the review for this project."
-        })
+    # if user.id in project.reviewers:
+    #     return Response({
+    #         "Status": "You have already submmited the review for this project."
+    #     })
     serializers = ProjectSerializers(project, many = False)
     review, created = Review.objects.get_or_create(
         owner = user,
         project = project,
     )
-    review.value = data['value']
-    review.body = data['body']
+    review.value = data[0]['value']
+    review.body = data[0]['body']
     review.save()
     project.getVotes
 

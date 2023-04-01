@@ -12,6 +12,7 @@ import Signup from "./Components/Signup";
 import { useState, useEffect } from "react"
 import { getToken } from "./localStorage";
 import axios from "axios";
+import ProjectDetials from "./Components/ProjectDetials";
 
 function App() {
   const [userdata, setUserdata] = useState([]);
@@ -55,8 +56,9 @@ function App() {
         <Route exact path="/search" element={<Search />}></Route>
         <Route exact path="/login" element={<Login />}></Route>
         <Route exact path="/signup" element={<Signup />}></Route>
-        <Route exact path="/profile"  element={<Profile userdata={userdata} projects={projects} loading={loading} blur={blur} />}></Route>
+        <Route exact path="/profile"  element={<Profile user={userdata} projects={projects} loading={loading} blur={blur} />}></Route>
         <Route exact path="/dev-profile/:id" element={<OtherProfile />}></Route>
+        <Route exact path="/project-details/:id" element={<ProjectDetials user={userdata} />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

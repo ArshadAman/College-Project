@@ -78,7 +78,7 @@ function Projects() {
           }`}
         >
           {projects.map((project, index) => (
-            <div
+            <Link to={`/project-details/${project.id}`}
               className="card w-80 bg-white md:space-y-4 space-y-2 border backdrop-blur-sm backdrop-filter bg-opacity-10 pb-2  rounded-md shadow-md"
               key={project.id}
             >
@@ -96,8 +96,8 @@ function Projects() {
                   id={`image${index + 1}`}
                 />
 
-                <a
-                  href="#"
+                <Link
+                  to={`/project-details/${project.id}`}
                   className="absolute bottom-[50%] left-0 right-0 p-3 invisible"
                   id={`pname${index + 1}`}
                   onMouseEnter={() => {
@@ -115,7 +115,7 @@ function Projects() {
                       ))}
                     </ul>
                   </div>
-                </a>
+                </Link>
               </div>
               <Link to={`/dev-profile/${project.owner.id}`} className="flex items-center justify-between mx-2">
                 <div className="dev flex items-center space-x-2">
@@ -136,7 +136,7 @@ function Projects() {
                   {project.vote_ratio}% Rated
                 </p>
               </Link>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
