@@ -68,19 +68,19 @@ function Profile({user, projects, loading, blur}) {
 
             <div className="social_links space-x-6 py-5 flex justify-center">
               <a href={`https://${user.social_github}`} target="_blank">
-                <i class="fab fa-github text-3xl"></i>
+                <i className="fab fa-github text-3xl"></i>
               </a>
               <a href={`https://${user.social_linkedin}`} target="_blank">
-                <i class="fab fa-linkedin text-3xl text-[#0963bf]"></i>
+                <i className="fab fa-linkedin text-3xl text-[#0963bf]"></i>
               </a>
               <a href={`https://${user.social_twitter}`} target="_blank">
-                <i class="fab fa-twitter text-3xl text-[#1d9bf0]"></i>
+                <i className="fab fa-twitter text-3xl text-[#1d9bf0]"></i>
               </a>
               <a href={`https://${user.social_instagram}`} target="_blank">
-                <i class="fab fa-instagram text-3xl text-[#ff3040]"></i>
+                <i className="fab fa-instagram text-3xl text-[#ff3040]"></i>
               </a>
               <a href={`${user.social_website}`} target="_blank">
-                <i class="fas fa-globe text-3xl"></i>
+                <i className="fas fa-globe text-3xl"></i>
               </a>
             </div>
 
@@ -93,9 +93,9 @@ function Profile({user, projects, loading, blur}) {
           <div className="heading flex items-center my-8 justify-between">
             <h1 className="text-3xl font-bold">Projects</h1>
           </div>
-          <div className="project_cards grid grid-cols-3 gap-4">
+          <div className="project_cards grid grid-cols-3 gap-4 py-4">
             {projects.map((project, index) => (
-              <div className="card w-72 h-56 relative" key={index}>
+              <Link to={`/project-details/${project.id}`} className="card w-72 h-56 relative" key={index}>
                 <img
                   src={`http://127.0.0.1:8000${project.featured_image}`}
                   alt=""
@@ -108,9 +108,10 @@ function Profile({user, projects, loading, blur}) {
                 >
                   View More
                 </Link>
-              </div>
+              </Link>
             ))}
           </div>
+          <Link to={"/add-project/"}><button className="px-3 py-2 bg-[#3e52c6] rounded-md text-white w-[100%]">Add Project</button></Link>
         </div>
       </div>
     </div>

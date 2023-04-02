@@ -126,7 +126,7 @@ function Profile() {
           </div>
           <div className="project_cards grid grid-cols-3 gap-4">
             {projects.map((project, index) => (
-              <div className="card w-72 h-56 relative" key={index}>
+              <Link to={`/project-details/${project.id}`} className="card w-72 h-56 relative" key={index}>
                 <img
                   src={`http://127.0.0.1:8000${project.featured_image}`}
                   alt=""
@@ -134,12 +134,12 @@ function Profile() {
                 />
 
                 <Link
-                  to={""}
+                 to={`/project-details/${project.id}`}
                   className="absolute top-[40%] left-[40%] right-[50%]"
                 >
                   View More
                 </Link>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

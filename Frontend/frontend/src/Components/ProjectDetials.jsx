@@ -11,7 +11,7 @@ function ProjectDetials({ user }) {
   const [projects, setProjects] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [success, setSucces] = useState(0);
-  const {access_token} = getToken();
+  const { access_token } = getToken();
   //   const [Rowner, setROwner] = useState([]);
   //   const [reviews, setReviews] = useState([]);
   const route = `http://127.0.0.1:8000/api/projects/${id}`;
@@ -31,22 +31,24 @@ function ProjectDetials({ user }) {
     let comment = document.getElementById("comment-box").value;
     const route = `http://127.0.0.1:8000/api/projects/${id}/vote/`;
     const data = [
-        {
-            "value": selectedOption,
-            "body": comment,
-        },
-    ]
-    axios.post(route, data,
-    {
+      {
+        value: selectedOption,
+        body: comment,
+      },
+    ];
+    axios
+      .post(route, data, {
         headers: {
-          "Authorization": `Bearer ${access_token}`,
+          Authorization: `Bearer ${access_token}`,
         },
-    }).then((res)=>{
-        console.log("Success")
-        setSucces(prev=>prev+1);
-    }).catch((err)=>{
+      })
+      .then((res) => {
+        console.log("Success");
+        setSucces((prev) => prev + 1);
+      })
+      .catch((err) => {
         console.log(err);
-    })
+      });
   };
 
   //JSX Part
@@ -156,7 +158,7 @@ function ProjectDetials({ user }) {
                           : ""
                       }`}
                       disabled={user.length == 0 || user.id == project.owner.id}
-                      onClick={event => handleReview(event, project.id)}
+                      onClick={(event) => handleReview(event, project.id)}
                     >
                       Leave Review
                     </button>
@@ -198,7 +200,9 @@ function ProjectDetials({ user }) {
               />
             </div>
             <div className="username text-2xl my-3 px-1 font-semibold text-[#545580]">
-              <Link to={""}>{project.owner.name}</Link>
+              <Link to={`/dev-profile/${project.owner.id}`}>
+                {project.owner.name}
+              </Link>
             </div>
             <div className="project-name">
               <h1 className="text-4xl font-semibold mb-7">{project.title}</h1>
@@ -209,13 +213,32 @@ function ProjectDetials({ user }) {
               </h1>
               <p className="about w-[70%]">{project.desc}</p>
             </div>
-            {user.id === project.owner.id ? (
-              <button className="my-10 px-3 py-1 bg-red-500 text-white">
-                Edit Project
-              </button>
-            ) : (
-              ""
-            )}
+            <div className="flex space-x-4">
+              {user.id === project.owner.id ? (
+                <Link
+                  to="/add-project"
+                  state={{ edit: true, project: project }}
+                >
+                  <button className="my-10 px-3 py-1 bg-[#1337d6] rounded-full text-white text-xl flex justify-center items-center">
+                    🖋️Edit
+                  </button>
+                </Link>
+              ) : (
+                ""
+              )}
+              {user.id === project.owner.id ? (
+                <Link
+                  to="/delete-project/"
+                  state={{ project: project }}
+                >
+                  <button className="my-10 px-3 py-1 bg-[#ff1212] rounded-full text-white text-xl flex justify-center items-center">
+                    🗑️Delete
+                  </button>
+                </Link>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
       ))}

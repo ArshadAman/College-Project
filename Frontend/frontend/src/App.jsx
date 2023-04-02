@@ -13,6 +13,8 @@ import { useState, useEffect } from "react"
 import { getToken } from "./localStorage";
 import axios from "axios";
 import ProjectDetials from "./Components/ProjectDetials";
+import AddProject from "./Components/AddProject";
+import DeleteProject from "./Components/DeleteProject";
 
 function App() {
   const [userdata, setUserdata] = useState([]);
@@ -59,6 +61,9 @@ function App() {
         <Route exact path="/profile"  element={<Profile user={userdata} projects={projects} loading={loading} blur={blur} />}></Route>
         <Route exact path="/dev-profile/:id" element={<OtherProfile />}></Route>
         <Route exact path="/project-details/:id" element={<ProjectDetials user={userdata} />}></Route>
+        <Route exact path="/add-project/" element={<AddProject user={userdata} />}></Route>
+        <Route exact path="/update/:id" element={<ProjectDetials user={userdata} />}></Route>
+        <Route exact path="/delete-project/" element={<DeleteProject user={userdata} />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

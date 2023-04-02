@@ -86,7 +86,7 @@ function Projects() {
                 <img
                   src={`${project.featured_image}`}
                   alt={project.title}
-                  className="object-cover rounded-t-md h-[270px]"
+                  className="object-cover w-full rounded-t-md h-[270px]"
                   onMouseEnter={() => {
                     showMe(`pname${index + 1}`, `image${index + 1}`);
                   }}
