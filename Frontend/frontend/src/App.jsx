@@ -1,4 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AddProject from "./Components/AddProject";
+import DeleteProject from "./Components/DeleteProject";
 import Developers from "./Components/Developers";
 import Footer from "./Components/Footer";
 import Home from "./Components/Home";
@@ -6,15 +10,12 @@ import Login from "./Components/Login";
 import Nav from "./Components/Nav";
 import OtherProfile from "./Components/OtherProfile";
 import Profile from "./Components/Profile";
+import ProjectDetials from "./Components/ProjectDetials";
 import Projects from "./Components/Projects";
 import Search from "./Components/Search";
 import Signup from "./Components/Signup";
-import { useState, useEffect } from "react"
 import { getToken } from "./localStorage";
-import axios from "axios";
-import ProjectDetials from "./Components/ProjectDetials";
-import AddProject from "./Components/AddProject";
-import DeleteProject from "./Components/DeleteProject";
+import ProfileEdit from "./Components/ProfileEdit";
 
 function App() {
   const [userdata, setUserdata] = useState([]);
@@ -64,6 +65,7 @@ function App() {
         <Route exact path="/add-project/" element={<AddProject user={userdata} />}></Route>
         <Route exact path="/update/:id" element={<ProjectDetials user={userdata} />}></Route>
         <Route exact path="/delete-project/" element={<DeleteProject user={userdata} />}></Route>
+        <Route exact path="/edit-profile/" element={<ProfileEdit user={userdata} />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

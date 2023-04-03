@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
 import axios from "axios";
-import { getToken } from "../localStorage";
+import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
 import { useLocation } from "react-router-dom";
+import { getToken } from "../localStorage";
 
 function AddProject() {
   const [image, setImage] = useState([]);
@@ -16,13 +16,18 @@ function AddProject() {
 
   function UpdateData(event, id) {
     event.preventDefault();
-    console.log(image)
     let title = document.getElementById("title").value;
     let desc = document.getElementById("desc").value;
     let source_link = document.getElementById("source").value;
     let demo_link = document.getElementById("demo").value;
     let tags = document.getElementById("tags").value;
-    let featured_image = image[0];
+    let featured_image;
+    if(image){
+      featured_image = image[0];
+    }
+    else{
+      featured_image = document.getElementById('image').files[0];
+    }
     UpData.append("title", title);
     UpData.append("desc", desc);
     UpData.append("demo_link", demo_link);
@@ -31,38 +36,37 @@ function AddProject() {
     UpData.append("tags", tags);
     UpData.append("featured_image", featured_image);
     UpData.append("id", id);
-    console.log(UpData);
 
-    //Sending PUT request
-    if (title.length > 3) {
-      axios
-        .put(update_route, UpData, {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      window.location.replace("/profile");
-    } else {
-      console.log("Title must be greater then 3 characters");
-    }
+    //Sending Post Request
+    axios
+      .put(update_route, UpData, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    window.location.replace("/profile");
   }
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(image[0])
     let title = document.getElementById("title").value;
     let desc = document.getElementById("desc").value;
     let source_link = document.getElementById("source").value;
     let demo_link = document.getElementById("demo").value;
     let tags = document.getElementById("tags").value;
-    let featured_image = image[0];
-    console.log(featured_image)
+    let featured_image;
+    if(image){
+      featured_image = image[0];
+    }
+    else{
+      featured_image = document.getElementById('image').files[0];
+    }
     formData.append("title", title);
     formData.append("desc", desc);
     formData.append("demo_link", demo_link);
@@ -70,7 +74,7 @@ function AddProject() {
     formData.append("source_link", source_link);
     formData.append("tags", tags);
     formData.append("featured_image", featured_image);
-    console.log(formData)
+    console.log(formData);
 
     //Sending post request
     if (title.length > 3) {
@@ -104,7 +108,6 @@ function AddProject() {
       );
     },
   });
-
 
   return (
     <div className="bg-[#f8fafd]">
@@ -190,7 +193,7 @@ function AddProject() {
               className="box flex h-56 border-2 border-black border-dotted items-center justify-center space-x-12 rounded-md"
               {...getRootProps()}
             >
-              <input id="image" {...getInputProps()}  />
+              <input id="image" {...getInputProps()} />
               {isDragActive ? (
                 <h1 className="">Drop your image here...</h1>
               ) : (

@@ -67,7 +67,6 @@ def getProject(request, pk):
 def projectVote(request, pk):
     user = request.user.profile
     data = request.data
-    print(data)
     project = Project.objects.get(id=pk)
     if project.owner == user:
         return Response({
@@ -147,7 +146,6 @@ def UpdateProject(request):
     data = request.data
     id = data['id']
 
-    print(f"THE IS ID: {id}")
 
     # Updating all the feilds
     title = data['title']
@@ -158,24 +156,39 @@ def UpdateProject(request):
     tags = data['tags']
     try:
         project = profile.project_set.get(id=id)
-        print(f"THE PROJECT IS: {project}")
-        print(f"THE Image IS: {featured_image}")
-        if not title == "":
+        if title == "":
+            project.title = project.title
+        else:
             project.title = title
-        project.desc = desc
+
+        if desc == "":
+            project.email = project.desc
+        else:
+            project.desc = desc
+
+        if demo_link == "":
+            project.demo_link = project.demo_link
+        else:
+            project.demo_link = demo_link
+
+        if source_link == "":
+            project.source_link = project.source_link
+        else:
+            project.source_link = source_link
+
         project.featured_image = featured_image
-        project.demo_link = demo_link
-        project.source_link = source_link
+
         tag_names = data.get('tags', [])  # get the tags from request data
         tag_array = tag_names.split(' ')
         for tag_name in tag_array:
-            tag, created = Tag.objects.get_or_create(
-            name=tag_name)  # get or create the tag
-        project.tags.add(tag)  # add the tag to the project
+            if tag_name !="":
+                tag, created = Tag.objects.get_or_create(
+                name=tag_name)  # get or create the tag
+                project.tags.add(tag)  # add the tag to the project
+
     # new_project.tags.set = data['tags']
         project.save()  # Save changes to database
     except Exception as e:
-        print(e)
         return Response({
             "Error": "Unable to find the project with that id in the database."
         })
@@ -243,16 +256,61 @@ def UpdateProfile(request):
     else:
         user.email = data['email']
 
+    if data['location'] == "":
+        user.location = user.location
+    else:
+        user.location = data['location']
+
+    if data['short_intro'] == "":
+        user.short_intro = user.short_intro
+    else:
+        user.short_intro = data['short_intro']
+
+    if data['bio'] == "":
+        user.bio = user.bio
+    else:
+        user.bio = data['bio']
+
+    if data['profile_image'] == "undefined":
+        user.profile_image = user.profile_image
+    else:
+        user.profile_image = data['profile_image']
+
+    if data['linkedin'] == "":
+        user.social_linkedin = user.social_linkedin
+    else:
+        user.social_linkedin = data['linkedin']
+
+    if data['github'] == "":
+        user.social_github = user.social_github
+    else:
+        user.social_github = data['github']
+
+    if data['twitter'] == "":
+        user.social_twitter = user.social_twitter
+    else:
+        user.social_twitter = data['twitter']
+
+    if data['instagram'] == "":
+        user.social_instagram = user.social_instagram
+    else:
+        user.social_instagram = data['instagram']
+
+    if data['website'] == "":
+        user.social_website = user.social_twitter
+    else:
+        user.social_website = data['website']
+
     # Updating other parameters
-    user.location = data['location']
-    user.short_intro = data['short_intro']
-    user.bio = data['bio']
-    user.profile_image = data['profile_image']
-    user.social_linkedin = data['linkedin']
-    user.social_github = data['github']
-    user.social_twitter = data['twitter']
-    user.social_instagram = data['instagram']
-    user.social_website = data['website']
+    # user.location = data['location']
+    # user.short_intro = data['short_intro']
+    # user.bio = data['bio']
+    # user.profile_image = data['profile_image']
+    # user.social_linkedin = data['linkedin']
+    # user.social_github = data['github']
+    # user.social_twitter = data['twitter']
+    # user.social_instagram = data['instagram']
+    # user.social_website = data['website']
 
     # Saving the details
     user.save()
@@ -285,9 +343,7 @@ def getSingleProfile(request, pk):
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
     profile = Profile.objects.get(user=request.user)
-    print(profile)
     projects = Project.objects.filter(owner_id=profile.id)
-    # print(projects)
     project_serializer = ProjectSerializers(projects, many=True)
     serializer = ProfileSerializers(profile, many=False)
     return Response([serializer.data, project_serializer.data])
