@@ -3,9 +3,9 @@ import svg from "../assets/about.png";
 
 function About() {
   return (
-    <div className="" id="about" tabIndex={-1}>
-      <h1 className="text-2xl font-semibold text-center" tabIndex={-1}>
-        ABOUT US
+    <div className="bg-[#0e1015] text-white py-12" id="about" tabIndex={-1}>
+      <h1 className="text-5xl text-center  text-[#5bc4a2]" tabIndex={-1}>
+        Why DevXplore
       </h1>
       <div className="flex items-center pb-5">
         <div className="left px-10 space-y-3 w-[70%]">
@@ -37,7 +37,7 @@ function About() {
             shaping the future of technology.
           </p>
         </div>
-        <div className="right w-[20%] border-4 rounded-3xl border-[#545580] py-2 mx-20 shadow-2xl">
+        <div className="right w-[20%] py-2 mx-20">
           <img src={svg} alt="About US" className="w-[250px] mx-auto" />
         </div>
       </div>

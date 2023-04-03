@@ -65,7 +65,7 @@ function Search() {
     name.style.visibility = "hidden";
   }
   return (
-    <div className="flex flex-col items-center justify-center md:py-20 py-10">
+    <div className="flex flex-col items-center justify-center md:py-20 py-10 bg-[#20232c] text-white">
       <div>
         <HashLoader
           color={`#3e52c6`}
@@ -145,14 +145,14 @@ function Search() {
         {devs.map((dev, index) => (
           <Link to={`/dev-profile/${dev.id}`}>
             <div
-              className="card w-64 bg-white md:space-y-4 my-10"
+              className="card w-52 bg-[#65d1ae] md:space-y-4 my-10 backdrop-blur-sm text-white backdrop-filter bg-opacity-100 rounded-full"
               key={index + 2}
             >
               <div className="image shadow-md space-y-3 rounded-full backdrop-blur-sm backdrop-filter bg-opacity-10 text-white">
                 <img
                   src={`${dev.profile_image}`}
                   alt={dev.name}
-                  className="object-cover w-64 h-64 rounded-full"
+                  className="object-cover w-52 h-52 rounded-full"
                   onMouseEnter={() => {
                     showMe(`dpname${index + 2}`, `dimage${index + 2}`);
                   }}
@@ -164,7 +164,7 @@ function Search() {
 
                 <Link
                   to={`/dev-profile/${dev.id}`}
-                  className="absolute bottom-[35%] left-[20%] p-3 invisible"
+                  className="absolute  left-[50%] top-[45%] transform translate-x-[-50%] translate-y-[-50%] w-full invisible"
                   id={`dpname${index + 2}`}
                   onMouseEnter={() => {
                     showMe(`dpname${index + 2}`, `dimage${index + 2}`);
@@ -173,9 +173,9 @@ function Search() {
                     HideMe(`dpname${index + 2}`, `dimage${index + 2}`);
                   }}
                 >
-                  <h2 className="text-2xl text-center">{dev.name}</h2>
-                  <div className="flex space-x-2 text-sm justify-center">
-                    <p>{dev.short_intro}</p>
+                  <div className="text-center flex flex-col justify-center font-semibold">
+                    <h2 className="text-xl text-center">{dev.name}</h2>
+                    <p className="text-sm text-center">{dev.short_intro}</p>
                   </div>
                 </Link>
               </div>

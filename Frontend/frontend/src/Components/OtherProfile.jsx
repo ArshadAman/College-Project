@@ -12,6 +12,19 @@ function Profile() {
   const [loading, setLoading] = useState(false);
   const [blur, setBlur] = useState(false);
 
+  function showMe(nameID, imgId) {
+    let name = document.getElementById(nameID);
+    let image = document.getElementById(imgId);
+    name.style.visibility = "visible";
+    image.style.filter = "brightness(30%)";
+  }
+  function HideMe(nameID, imgId) {
+    let name = document.getElementById(nameID);
+    let image = document.getElementById(imgId);
+    image.style.filter = "brightness(100%)";
+    name.style.visibility = "hidden";
+  }
+
   // Spinner
   const override = {
     display: "block",
@@ -64,7 +77,7 @@ function Profile() {
           />
         </div>
 
-        <div className="profile flex">
+        <div className="profile flex bg-[#20232c] text-white">
           <div className="left w-1/3">
             <div className="profile_pic relative bottom-20 left-40 -mb-40">
               <img
@@ -110,12 +123,13 @@ function Profile() {
           <div className="right px-16">
             <div className="heading flex items-center my-8 justify-between">
               <h1 className="text-3xl font-bold">Projects</h1>
-              <a
+              <button
                 href={`mailto: ${userdata.email}`}
+                onClick={() => window.location = `mailto:${userdata.email}`}
                 className="px-4 py-2 bg-blue-600 text-white rounded-md"
               >
                 Connect
-              </a>
+              </button>
             </div>
             <div className="project_cards grid grid-cols-3 gap-4">
               {projects.map((project, index) => (
@@ -128,11 +142,19 @@ function Profile() {
                     src={`http://127.0.0.1:8000${project.featured_image}`}
                     alt=""
                     className="w-72 h-56 rounded-lg"
+                    onMouseEnter={() => {
+                      showMe(`pname${index + 1}`, `image${index + 1}`);
+                    }}
+                    onMouseLeave={() => {
+                      HideMe(`pname${index + 1}`, `image${index + 1}`);
+                    }}
+                    id={`image${index + 1}`}
                   />
 
                   <Link
                     to={`/project-details/${project.id}`}
-                    className="absolute top-[40%] left-[40%] right-[50%]"
+                    className="absolute top-[40%] left-[40%] right-[50%] font-semibold text-white"
+                    id={`pname${index+1}`}
                   >
                     View More
                   </Link>

@@ -1,20 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, Navigate } from "react-router-dom";
-import logbg from "../assets/bglog.png";
-import HashLoader from "react-spinners/HashLoader";
+import logbg from "../assets/bglog.jpg";
+import devX from "../assets/devXplore.jpg";
 import axios from "axios";
 
 function Signup() {
-  // Spinner
-  const override = {
-    display: "block",
-    margin: "0 auto",
-  };
-
   const route = "http://127.0.0.1:8000/api/users/signup/";
-  // const [loading, setLoading] = useState(false);
-  // const [blur, setBlur] = useState(false);
-  // const [singup, setSignup] = useState(null);
 
   const handleSignup = async (event) => {
     event.preventDefault();
@@ -42,43 +33,26 @@ function Signup() {
           }
         );
     }
-    window.location.replace('/login');
+    window.location.replace("/login");
   };
 
-  // const signStateChange = () =>{
-  //   setSignup(1)
-  // }
-
-  // useEffect(() => {
-  //   handleSignup();
-  // }, [singup]);
-
   return (
-    <div className="bg-white">
+    <div className="bg-[#0e1015]">
       <main
-        className={`flex justify-center items-center h-[680px] bg-opacity-10 backdrop-filter backdrop-blur-lg ${
-          blur == true ? "blur-sm" : "blur-0"
-        }`}
+        className={`flex justify-center items-center h-[680px] bg-opacity-10 backdrop-filter backdrop-blur-lg`}
         style={{
           backgroundImage: `url(${logbg})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
       >
-        {/* <div className="flex items-center absolute z-20 left-[50%] right-[50%]">
-          <HashLoader
-            color={`#3e52c6`}
-            loading={loading}
-            cssOverride={override}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </div> */}
-        <div className="flex justify-center my-24 bg-black rounded-xl bg-opacity-10 backdrop-filter backdrop-blur-lg ">
+        <div className="flex justify-center my-24 bg-[#CBE4DE] rounded-xl bg-opacity-10 backdrop-filter backdrop-blur-lg ">
           <div className=" rounded-lg w-96 py-5">
+            <div className="">
+              <img src={devX} alt="" className="w-20 mx-auto" />
+            </div>
             <h1
-              className="text-black font-serif text-center mt-4 md:font-bold text-lg"
+              className="text-white font-serif text-center mt-4 md:font-bold text-lg"
               style={{ fontFamily: '"Raleway", sans-serif' }}
             >
               Create a new developer account
@@ -110,7 +84,7 @@ function Signup() {
                 required
               />
               <ul className="pl-2 mt-1">
-                <li className="text-xs text-black ml-16 mr-12 list-disc">
+                <li className="text-xs text-white ml-16 mr-12 list-disc">
                   Usernames can only contain alphanumeric characters (A-Z, 0-9)
                   and ("@").
                 </li>
@@ -124,13 +98,13 @@ function Signup() {
                 required
               />
               <ul className="pl-2 mt-1">
-                <li className="text-xs text-black ml-16 mr-12 list-disc">
+                <li className="text-xs text-white ml-16 mr-12 list-disc">
                   password must contain at least 8 characters.
                 </li>
-                <li className="text-xs text-black ml-16 mr-12 list-disc">
+                <li className="text-xs text-white ml-16 mr-12 list-disc">
                   A mixture of letters and numbers{" "}
                 </li>
-                <li className="text-xs text-black ml-16 mr-12 list-disc">
+                <li className="text-xs text-white ml-16 mr-12 list-disc">
                   Inclusion of at least one special character, e.g., ! @ # ? ].
                 </li>
               </ul>
@@ -143,7 +117,7 @@ function Signup() {
                 required
               />
               <button
-                className="bg-blue-700 ml-14 mt-4 px-28 py-1 rounded-md text-white hover:bg-blue-500"
+                className="bg-[#0E8388] ml-14 mt-4 px-28 py-1 rounded-md text-white hover:bg-[#0e6e71]"
                 style={{ fontFamily: '"Raleway", sans-serif' }}
                 onClick={handleSignup}
               >
@@ -151,14 +125,14 @@ function Signup() {
               </button>
             </form>
             <h2
-              className="text-center text-black text-md mt-4 md:font-bold"
+              className="text-center text-white text-md mt-4 md:font-bold"
               style={{ fontFamily: '"Raleway", sans-serif' }}
             >
               Already have an account?{" "}
             </h2>
             <Link to="/login">
               <button
-                className=" flex justify-center bg-blue-700 ml-36 mt-4  px-8 py-1 rounded-md text-white hover:bg-blue-500"
+                className=" flex justify-center bg-[#2E4F4F] ml-36 mt-4  px-8 py-1 rounded-md text-white hover:bg-[#2b5e5e]"
                 style={{ fontFamily: '"Raleway", sans-serif' }}
               >
                 Log In

@@ -60,8 +60,8 @@ function Projects() {
   }
   return (
     <>
-      <Banner name="project" video={projectV} page="project" />
-      <div className="flex justify-center items-center md:py-20 py-10">
+      <Banner name="project" page="Projects" tag="Xplore mind-blowing projects." />
+      <div className="flex justify-center items-center md:py-20 py-10 bg-[#20232c]">
         <div className="flex items-center absolute z-20 left-[50%] right-[50%]">
           <HashLoader
             color={`#3e52c6`}
@@ -73,13 +73,13 @@ function Projects() {
           />
         </div>
         <div
-          className={`cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-10 ${
+          className={`cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-10  ${
             blur == true ? "blur-sm" : "blur-0"
           }`}
         >
           {projects.map((project, index) => (
             <Link to={`/project-details/${project.id}`}
-              className="card w-80 bg-white md:space-y-4 space-y-2 border backdrop-blur-sm backdrop-filter bg-opacity-10 pb-2  rounded-md shadow-md"
+              className="card w-80 bg-[#fff] md:space-y-4 text-[#fff] space-y-2 font-semibold pb-2 backdrop-blur-sm backdrop-filter bg-opacity-10 rounded-md shadow-md"
               key={project.id}
             >
               <div className="image space-y-3 rounded-md text-white">
@@ -140,10 +140,10 @@ function Projects() {
           ))}
         </div>
       </div>
-      <div className="btn flex justify-center space-x-6">
+      <div className="btn flex justify-center space-x-6 py-8 bg-[#20232c]">
         <button
-          className={`text-white px-4 py-2 rounded-md ${
-            previous == null ? "bg-[#a9a4a7] cursor-not-allowed" : "bg-[#3e52c6]"
+          className={`text-black font-semibold px-4 py-2 rounded-md ${
+            previous == null ? "bg-[#a9a4a7] cursor-not-allowed" : "bg-[#eb92d5]"
           }`}
           onClick={decrePage}
           disabled={previous == null}
@@ -151,8 +151,8 @@ function Projects() {
           Prev
         </button>
         <button
-          className={`text-white px-4 py-2 rounded-md ${
-            next == null ? "bg-[#a9a4a7] cursor-not-allowed" : "bg-[#3e52c6]"
+          className={`text-black font-semibold px-4 py-2 rounded-md ${
+            next == null ? "bg-[#a9a4a7] cursor-not-allowed" : "bg-[#eb92d5]"
           }`}
           onClick={inciPage}
           disabled={next == null}

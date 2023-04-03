@@ -12,8 +12,6 @@ function ProjectDetials({ user }) {
   const [selectedOption, setSelectedOption] = useState("");
   const [success, setSucces] = useState(0);
   const { access_token } = getToken();
-  //   const [Rowner, setROwner] = useState([]);
-  //   const [reviews, setReviews] = useState([]);
   const route = `http://127.0.0.1:8000/api/projects/${id}`;
   useEffect(() => {
     axios.get(route).then((res) => {
@@ -56,12 +54,12 @@ function ProjectDetials({ user }) {
     <>
       {projects.map((project, index) => (
         <div id="main" className="flex flex-row-reverse" key={index}>
-          <div className="left px-10 py-4">
-            <h1 className="text-3xl">Tools and Stack</h1>
+          <div className="left px-10 py-4 bg-[#20232c] text-white">
+            <h1 className="text-3xl py-4">Tools and Stack</h1>
             <div className="tags flex flex-wrap py-4 gap-2">
               {project.tags.map((tag, index) => (
                 <p
-                  className="bg-[#ededfd] py-1 px-5 rounded-full font-semibold"
+                  className="bg-[#918ced] py-1 px-5 rounded-full font-semibold"
                   key={index}
                 >
                   {tag["name"]}
@@ -72,7 +70,7 @@ function ProjectDetials({ user }) {
               {project.source_link ? (
                 <a
                   href={project.source_link}
-                  className="text-[#3e52c6] font-semibold"
+                  className="text-[#eb92d5] font-semibold"
                 >
                   Source Code
                 </a>
@@ -82,7 +80,7 @@ function ProjectDetials({ user }) {
               {project.demo_link ? (
                 <a
                   href={project.demo_link}
-                  className="text-[#3e52c6] font-semibold"
+                  className="text-[#eb92d5] font-semibold"
                 >
                   Demo
                 </a>
@@ -93,7 +91,7 @@ function ProjectDetials({ user }) {
             <div className="comments py-6 space-y-3">
               <h3 className="text-3xl font-semibold">Feedback</h3>
               <h4 className="text-lg">
-                <span className="text-[#545580] font-semibold">
+                <span className="text-[#edf593] font-semibold">
                   {project.vote_ratio}%
                 </span>{" "}
                 Positive Feedback ({project.vote_total} Votes)
@@ -110,7 +108,7 @@ function ProjectDetials({ user }) {
                       checked={selectedOption === "up"}
                       onChange={handleOptionChange}
                     />
-                    <i className="far fa-thumbs-up text-xl fa-lg" id="like"></i>
+                    <i className="far fa-thumbs-up text-4xl" id="like"></i>
                   </span>
                   <span className="dislike-btn flex items-center space-x-1">
                     <input
@@ -123,12 +121,12 @@ function ProjectDetials({ user }) {
                       onChange={handleOptionChange}
                     />
                     <i
-                      className="far fa-thumbs-down text-xl fa-lg"
+                      className="far fa-thumbs-down text-4xl"
                       id="dislike"
                     ></i>
                   </span>
                 </div>
-                <div className="comment-box py-2">
+                <div className="comment-box py-5">
                   <textarea
                     name="comment-box"
                     id="comment-box"
@@ -139,20 +137,20 @@ function ProjectDetials({ user }) {
                         ? "You can't review your own project"
                         : "Write a review here..."
                     }
-                    className="focus:outline-none border-2 border-[#545580] p-2"
+                    className="focus:outline-none border-2 rounded-md p-2"
                     disabled={user.length == 0 || user.id == project.owner.id}
                   ></textarea>
                   {user.length == 0 ? (
                     <p className="text-2xl">
                       Please{" "}
-                      <Link to="/login" className="text-[#3e52c6]">
+                      <Link to="/login" className="text-[#eb92d5]">
                         Login
                       </Link>{" "}
                       to Leave a Review
                     </p>
                   ) : (
                     <button
-                      className={`bg-blue-700 text-white font-medium py-2 px-4 ${
+                      className={`bg-[#ffffff] text-lg text-black font-semibold rounded-md py-2 px-4 ${
                         user.length == 0 || user.id == project.owner.id
                           ? "cursor-not-allowed"
                           : ""
@@ -166,11 +164,11 @@ function ProjectDetials({ user }) {
                 </div>
               </form>
 
-              <div className="comment-display overflow-y-scroll h-[250px] border-4 rounded-md border-[#545580] py-2">
+              <div className="comment-display overflow-y-scroll h-[250px] border-4 rounded-md border-[#eb92d5] py-2">
                 <ul className="space-y-2">
                   {project.reviews.map((r, index) => (
                     <li
-                      className="py-2 px-2 bg-[#ededfd] flex justify-between items-center space-x-3"
+                      className="py-2 px-2 bg-[a3aa] flex justify-between items-center space-x-3"
                       key={index}
                     >
                       {/* <Link className="user-image">
@@ -191,7 +189,7 @@ function ProjectDetials({ user }) {
             </div>
           </div>
 
-          <div className="right px-10 py-5">
+          <div className="right px-10 py-5 bg-[#20232c] text-white">
             <div className="project-image">
               <img
                 src={`http://127.0.0.1:8000${project.featured_image}`}
@@ -199,7 +197,7 @@ function ProjectDetials({ user }) {
                 className="h-[65vh] w-[920px]"
               />
             </div>
-            <div className="username text-2xl my-3 px-1 font-semibold text-[#545580]">
+            <div className="username text-2xl my-3 px-1 font-semibold text-[#918ced]">
               <Link to={`/dev-profile/${project.owner.id}`}>
                 {project.owner.name}
               </Link>

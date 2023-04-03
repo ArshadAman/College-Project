@@ -110,15 +110,15 @@ function AddProject() {
   });
 
   return (
-    <div className="bg-[#f8fafd]">
+    <div className="bg-[#14171f]">
       <div className="box box-border mx-auto w-[62%] pt-4 pb-10">
-        <h1 className="text-center my-5 text-4xl underline-offset-8 underline">
+        <h1 className="text-center my-5 text-4xl underline-offset-8 underline text-white">
           Enter your project detils
         </h1>
-        <form className=" rounded space-y-6 bg-[#fffefd] border-2 p-16">
+        <form className=" rounded space-y-6 bg-[#20232c] border-2 border-[#20232c] p-16 shadow-2xl">
           <div className="">
             <label htmlFor="title">
-              <h1 className="text-xl font-semibold">Title</h1>
+              <h1 className="text-xl font-semibold text-white">Title</h1>
             </label>
             <input
               type="text"
@@ -130,7 +130,7 @@ function AddProject() {
           <div className="flex flex-col items-center">
             <div className="desc">
               <label htmlFor="desc">
-                <h1 className="text-xl font-semibold">Describe Your Project</h1>
+                <h1 className="text-xl font-semibold text-white">Describe Your Project</h1>
               </label>
               <textarea
                 name="desc"
@@ -146,7 +146,7 @@ function AddProject() {
           </div>
           <div className="source">
             <label htmlFor="source">
-              <h1 className="text-xl font-semibold">Link to Source Code</h1>
+              <h1 className="text-xl font-semibold text-white">Link to Source Code</h1>
             </label>
             <input
               type="url"
@@ -159,7 +159,7 @@ function AddProject() {
           </div>
           <div className="work">
             <label htmlFor="work">
-              <h1 className="text-xl font-semibold">Link to your Work</h1>
+              <h1 className="text-xl font-semibold text-white">Link to your Work</h1>
             </label>
             <input
               type="url"
@@ -172,7 +172,7 @@ function AddProject() {
           </div>
           <div className="tags">
             <label htmlFor="tags">
-              <h1 className="text-xl font-semibold">Tags</h1>
+              <h1 className="text-xl font-semibold text-white">Tags</h1>
             </label>
             <input
               type="text"
@@ -187,19 +187,19 @@ function AddProject() {
           </div>
           <div className="image w-[100%]">
             <label htmlFor="image">
-              <h1 className="text-2xl">Drop your project Thumbnail</h1>
+              <h1 className="text-2xl text-white">Drop your project Thumbnail</h1>
             </label>
             <div
-              className="box flex h-56 border-2 border-black border-dotted items-center justify-center space-x-12 rounded-md"
+              className="box flex h-56 border-2 border-white border-dotted items-center justify-center space-x-12 rounded-md"
               {...getRootProps()}
             >
               <input id="image" {...getInputProps()} />
               {isDragActive ? (
-                <h1 className="">Drop your image here...</h1>
+                <h1 className=" text-white">Drop your image here...</h1>
               ) : (
                 <div>
-                  <p className="">Drag and drop your image here....</p>
-                  <p className="text-center">
+                  <p className="text-white">Drag and drop your image here....</p>
+                  <p className="text-center text-white">
                     Or, <span className="underline">browse</span> to upload
                   </p>
                 </div>

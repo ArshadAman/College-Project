@@ -35,11 +35,11 @@ function DeleteProject() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-red-100 h-[500px] w-[500px] mx-auto my-12">
-      <h1 className="text-3xl text-center">
+    <div className="flex flex-col justify-center items-center bg-[#20232c] h-[500px] w-[500px] mx-auto my-12 rounded-md">
+      <h1 className="text-3xl text-center text-white">
         This action is not reversible. Still want to delete?
       </h1>
-      <h1 className="text-xl text-center my-5">
+      <h1 className="text-xl text-center my-5 text-white">
         Type the Project name to delete: {state.project.title}
       </h1>
       <input

@@ -72,31 +72,31 @@ function ProfileEdit() {
   });
 
   return (
-    <div className="bg-[#f8fafd]">
+    <div className="bg-[#14171f]">
       <div className="box box-border mx-auto w-[62%] pt-4 pb-10">
-        <h1 className="text-center my-5 text-4xl underline-offset-8 underline">
-          Edit your details
+        <h1 className="text-center my-5 text-4xl underline-offset-8 underline text-white">
+          Update your details
         </h1>
-        <form className=" rounded space-y-6 bg-[#fffefd] border-2 p-16">
+        <form className=" rounded space-y-6 bg-[#20232c] border-2 border-[#20232c] p-16 shadow-2xl">
           <div className="image w-[100%] relative">
             <label htmlFor="image">
-              <h1 className="text-2xl">Drop your Profile Picture</h1>
+              <h1 className="text-2xl text-white text-center pb-3">Drop your Profile Picture</h1>
             </label>
             <div
-              className="box flex border-2 border-black border-dotted items-center justify-center space-y-2 rounded-full w-44 h-44 mx-auto"
+              className="box flex border-2 border-white border-dotted items-center justify-center space-y-2 rounded-full w-44 h-44 mx-auto"
               {...getRootProps()}
             >
               <input id="image" {...getInputProps()} />
               {isDragActive ? (
-                <h1 className="text-center text-sm px-4">
+                <h1 className="text-center text-sm px-4 text-white">
                   Drop your image here...
                 </h1>
               ) : (
                 <div>
-                  <p className="text-center text-sm px-4">
+                  <p className="text-center text-sm px-4 text-white">
                     Drag and drop your image here....
                   </p>
-                  <p className="text-center text-sm px-4">
+                  <p className="text-center text-sm px-4 text-white">
                     Or, <span className="underline">browse</span> to upload
                   </p>
                 </div>
@@ -118,7 +118,7 @@ function ProfileEdit() {
           </div>
           <div className="name">
             <label htmlFor="name">
-              <h1 className="text-xl font-semibold">Name</h1>
+              <h1 className="text-xl font-semibold text-white">Name</h1>
             </label>
             <input
               type="text"
@@ -129,7 +129,7 @@ function ProfileEdit() {
           </div>
           <div className="username">
             <label htmlFor="username">
-              <h1 className="text-xl font-semibold">Username</h1>
+              <h1 className="text-xl font-semibold text-white">Username</h1>
             </label>
             <input
               type="text"
@@ -140,7 +140,7 @@ function ProfileEdit() {
           </div>
           <div className="email">
             <label htmlFor="email">
-              <h1 className="text-xl font-semibold">Email</h1>
+              <h1 className="text-xl font-semibold text-white">Email</h1>
             </label>
             <input
               type="email"
@@ -151,7 +151,7 @@ function ProfileEdit() {
           </div>
           <div className="location">
             <label htmlFor="location">
-              <h1 className="text-xl font-semibold">Location</h1>
+              <h1 className="text-xl font-semibold text-white">Location</h1>
             </label>
             <input
               type="text"
@@ -162,7 +162,7 @@ function ProfileEdit() {
           </div>
           <div className="short_intro">
             <label htmlFor="short_intro">
-              <h1 className="text-xl font-semibold">Intro</h1>
+              <h1 className="text-xl font-semibold text-white">Intro</h1>
             </label>
             <input
               type="text"
@@ -174,7 +174,7 @@ function ProfileEdit() {
           <div className="flex flex-col items-center">
             <div className="bio">
               <label htmlFor="bio">
-                <h1 className="text-xl font-semibold">Bio</h1>
+                <h1 className="text-xl font-semibold text-white">Bio</h1>
               </label>
               <textarea
                 name="bio"
@@ -188,7 +188,7 @@ function ProfileEdit() {
           </div>
           <div className="social_linkedin">
             <label htmlFor="social_linkedin">
-              <h1 className="text-xl font-semibold">LinkedIn</h1>
+              <h1 className="text-xl font-semibold text-white">LinkedIn</h1>
             </label>
             <input
               type="url"
@@ -199,7 +199,7 @@ function ProfileEdit() {
           </div>
           <div className="social_github">
             <label htmlFor="social_github">
-              <h1 className="text-xl font-semibold">GitHub</h1>
+              <h1 className="text-xl font-semibold text-white">GitHub</h1>
             </label>
             <input
               type="url"
@@ -210,7 +210,7 @@ function ProfileEdit() {
           </div>
           <div className="social_twitter">
             <label htmlFor="social_twitter">
-              <h1 className="text-xl font-semibold">Twitter</h1>
+              <h1 className="text-xl font-semibold text-white">Twitter</h1>
             </label>
             <input
               type="url"
@@ -221,7 +221,7 @@ function ProfileEdit() {
           </div>
           <div className="social_instagram">
             <label htmlFor="social_instagram">
-              <h1 className="text-xl font-semibold">Instagram</h1>
+              <h1 className="text-xl font-semibold text-white">Instagram</h1>
             </label>
             <input
               type="url"
@@ -232,7 +232,7 @@ function ProfileEdit() {
           </div>
           <div className="social_website">
             <label htmlFor="social_website">
-              <h1 className="text-xl font-semibold">Website</h1>
+              <h1 className="text-xl font-semibold text-white">Website</h1>
             </label>
             <input
               type="url"

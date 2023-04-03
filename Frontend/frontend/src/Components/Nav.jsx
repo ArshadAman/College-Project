@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import avatar from "../assets/avatar.png";
 import { getToken, removeToken } from "../localStorage";
-import axios from "axios";
 
 function Nav(props) {
   const [screenPos, setScreenPos] = useState(0);
@@ -83,7 +81,7 @@ function Nav(props) {
             <li className={`text-sm font-semibold `}>
               <Link
                 to="/"
-                className="hover:bg-[#545580] py-1 px-2 hover:text-white rounded-md"
+                className="hover:bg-[#545580] py-3 px-3 hover:text-white rounded-md"
               >
                 HOME
               </Link>
@@ -91,7 +89,7 @@ function Nav(props) {
             <li className="text-sm font-semibold ">
               <Link
                 to="/projects"
-                className="hover:bg-[#545580] py-1 px-2 hover:text-white rounded-md"
+                className="hover:bg-[#545580] py-3 px-3 hover:text-white rounded-md"
               >
                 PROJECTS
               </Link>
@@ -99,7 +97,7 @@ function Nav(props) {
             <li className="text-sm font-semibold ">
               <Link
                 to="/developers"
-                className="hover:bg-[#545580] py-1 px-2 hover:text-white rounded-md"
+                className="hover:bg-[#545580] py-3 px-3 hover:text-white rounded-md"
               >
                 DEVELOPERS
               </Link>
@@ -107,7 +105,7 @@ function Nav(props) {
             {access_token ? (
               <>
                 <button
-                  className="text-sm font-semibold hover:bg-[#545580] py-1 px-2 hover:text-white rounded-md"
+                  className="text-sm font-semibold hover:bg-[#545580] py-3 px-3 hover:text-white rounded-md"
                   onClick={handleLogout}
                 >
                   LOGOUT
@@ -121,7 +119,7 @@ function Nav(props) {
                 <button className="text-sm font-semibold ">
                   <Link
                     to="/login"
-                    className="hover:bg-[#545580] py-1 px-2 hover:text-white rounded-md"
+                    className="hover:bg-[#545580] py-3 px-3 hover:text-white rounded-md"
                   >
                     LOGIN
                   </Link>
@@ -129,7 +127,7 @@ function Nav(props) {
                 <button className="text-sm font-semibold ">
                   <Link
                     to="/signup"
-                    className="hover:bg-[#545580] py-1 px-2 hover:text-white rounded-md"
+                    className="hover:bg-[#545580] py-3 px-3 hover:text-white rounded-md"
                   >
                     REGISTER
                   </Link>
@@ -137,11 +135,6 @@ function Nav(props) {
               </>
             )}
           </ul>
-          <div className="lines flex flex-col space-y-1 md:hidden">
-            <div className="line w-7 h-1 bg-black"></div>
-            <div className="line w-7 h-1 bg-black"></div>
-            <div className="line w-7 h-1 bg-black"></div>
-          </div>
         </div>
       </div>
     </nav>

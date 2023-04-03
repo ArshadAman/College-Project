@@ -1,10 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import logbg from "../assets/bglog.png";
-import { getToken, storeToken } from "../localStorage";
-import { useDispatch } from "react-redux";
 import axios from "axios";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import logbg from "../assets/bglog.jpg";
+import devX from "../assets/devXplore.jpg";
 import { login } from "../features/counter/userSlice";
+import { getToken, storeToken } from "../localStorage";
 
 function Login() {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ function Login() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="">
       <main
         className="flex justify-center items-center h-[680px] bg-opacity-10 backdrop-filter backdrop-blur-lg"
         style={{
@@ -54,13 +55,16 @@ function Login() {
           backgroundSize: "cover",
         }}
       >
-        <div className="flex justify-center my-24 bg-black rounded-xl bg-opacity-10 backdrop-filter backdrop-blur-lg ">
-          <div className=" rounded-lg w-96 py-5">
+        <div className="flex justify-center my-24 bg-[#CBE4DE] rounded-xl bg-opacity-10 backdrop-filter backdrop-blur-lg ">
+          <div className="rounded-lg w-[25rem] py-5">
+            <div className="h-40">
+              <img src={devX} alt="" className="w-32 mx-auto" />
+            </div>
             <h1
-              className="text-black font-serif text-center mt-4 md:font-bold text-lg"
+              className="text-white font-serif text-center mt-4 md:font-bold text-2xl"
               style={{ fontFamily: '"Raleway", sans-serif' }}
             >
-              Login to your account
+              Hello Developer, Welcome Back!
             </h1>
             <form action="">
               <input
@@ -87,7 +91,7 @@ function Login() {
               </button>
             </form>
             <h2
-              className="text-center text-black text-md mt-4 md:font-bold"
+              className="text-center text-white text-md mt-4 md:font-bold"
               style={{ fontFamily: '"Raleway", sans-serif' }}
             >
               Create account?{" "}
