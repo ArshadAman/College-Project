@@ -14,7 +14,7 @@ function AddProject() {
   const update_route = "http://127.0.0.1:8000/api/update-project/";
   const { access_token } = getToken();
 
-  function UpdateData(event, id) {
+  async function UpdateData(event, id) {
     event.preventDefault();
     let title = document.getElementById("title").value;
     let desc = document.getElementById("desc").value;
@@ -38,7 +38,7 @@ function AddProject() {
     UpData.append("id", id);
 
     //Sending Post Request
-    axios
+    await axios
       .put(update_route, UpData, {
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -53,7 +53,7 @@ function AddProject() {
     window.location.replace("/profile");
   }
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     let title = document.getElementById("title").value;
     let desc = document.getElementById("desc").value;
@@ -78,7 +78,7 @@ function AddProject() {
 
     //Sending post request
     if (title.length > 3) {
-      axios
+      await axios
         .post(add_route, formData, {
           headers: {
             Authorization: `Bearer ${access_token}`,

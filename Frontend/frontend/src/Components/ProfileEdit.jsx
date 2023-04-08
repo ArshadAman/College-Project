@@ -9,7 +9,7 @@ function ProfileEdit() {
   const update_route = "http://127.0.0.1:8000/api/users/update-profile/";
   const { access_token } = getToken();
 
-  function UpdateData(event) {
+  async function UpdateData(event) {
     event.preventDefault();
     let names = document.getElementById("name").value;
     let username = document.getElementById("username").value;
@@ -43,7 +43,7 @@ function ProfileEdit() {
     UpData.append("website", social_website);
 
     //Sending PUT request
-    axios
+    await axios
       .put(update_route, UpData, {
         headers: {
           Authorization: `Bearer ${access_token}`,
