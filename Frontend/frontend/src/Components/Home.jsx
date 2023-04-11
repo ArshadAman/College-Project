@@ -1,7 +1,6 @@
 import React from 'react'
 import About from './About'
 import Banner from './Banner'
-import bannv from "../assets/banner.mp4";
 import ProjectHomeCards from './ProjectHomeCards'
 
 

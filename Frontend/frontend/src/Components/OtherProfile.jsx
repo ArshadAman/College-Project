@@ -90,37 +90,54 @@ function Profile() {
             <div className="profile_details py-24">
               <div className="heading flex flex-col items-center">
                 <h1 className="text-3xl font-semibold">{userdata.name}</h1>
-                <h2 className="text-xl">{userdata.short_intro}</h2>
+                <h2 className="text-xl px-6 py-3">{userdata.short_intro}</h2>
                 <h2 className="text-lg`">@{userdata.username}</h2>
               </div>
 
               <div className="social_links space-x-6 py-5 flex justify-center">
-                <a href={`https://${userdata.social_github}`} target="_blank">
-                  <i class="fab fa-github text-3xl"></i>
-                </a>
-                <a href={`https://${userdata.social_linkedin}`} target="_blank">
-                  <i class="fab fa-linkedin text-3xl text-[#0963bf]"></i>
-                </a>
-                <a href={`https://${userdata.social_twitter}`} target="_blank">
-                  <i class="fab fa-twitter text-3xl text-[#1d9bf0]"></i>
-                </a>
-                <a
-                  href={`https://${userdata.social_instagram}`}
-                  target="_blank"
-                >
-                  <i class="fab fa-instagram text-3xl text-[#ff3040]"></i>
-                </a>
-                <a href={`${userdata.social_website}`} target="_blank">
-                  <i class="fas fa-globe text-3xl"></i>
-                </a>
+              {userdata.social_github && userdata.social_github != "" ? (
+                  <a href={`${userdata.social_github}`} target="_blank">
+                    <i className="fab fa-github text-3xl"></i>
+                  </a>
+                ) : (
+                  ""
+                )}
+                {userdata.social_linkedin && userdata.social_linkedin != "" ? (
+                  <a href={`${userdata.social_linkedin}`} target="_blank">
+                    <i className="fab fa-linkedin text-3xl text-[#0963bf]"></i>
+                  </a>
+                ) : (
+                  ""
+                )}
+                {userdata.social_twitter && userdata.social_twitter != "" ? (
+                  <a href={`${userdata.social_twitter}`} target="_blank">
+                    <i className="fab fa-twitter text-3xl text-[#1d9bf0]"></i>
+                  </a>
+                ) : (
+                  ""
+                )}
+                {userdata.social_instagram && userdata.social_instagram != "" ? (
+                  <a href={`${userdata.social_instagram}`} target="_blank">
+                    <i className="fab fa-instagram text-3xl text-[#ff3040]"></i>
+                  </a>
+                ) : (
+                  ""
+                )}
+                {userdata.social_website && userdata.social_website != "" ? (
+                  <a href={`${userdata.social_website}`} target="_blank">
+                    <i className="fas fa-globe text-3xl"></i>
+                  </a>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="about">
-                <p className="px-16">{userdata.bio}</p>
+                <p className="px-6 py-5">{userdata.bio}</p>
               </div>
             </div>
           </div>
-          <div className="right px-16">
+          <div className="right px-16 pb-9">
             <div className="heading flex items-center my-8 justify-between">
               <h1 className="text-3xl font-bold">Projects</h1>
               <button

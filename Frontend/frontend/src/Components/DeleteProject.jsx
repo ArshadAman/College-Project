@@ -9,13 +9,13 @@ function DeleteProject() {
   const delete_route = "http://127.0.0.1:8000/api/delete-project/delete/";
   const formData = new FormData();
 
-  const handleDelete = (event, id, title) => {
+  const handleDelete = async(event, id, title) => {
     event.preventDefault();
     formData.append("id", id);
     let input_val = document.getElementById("p-title").value
     console.log(input_val)
     if (input_val=== title) {
-      axios
+     await axios
         .post(delete_route, formData, {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -35,7 +35,7 @@ function DeleteProject() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-[#20232c] h-[500px] w-[500px] mx-auto my-12 rounded-md">
+    <div className="flex flex-col justify-center items-center border shadow-2xl h-[500px] w-[500px] mx-auto my-12 rounded-md">
       <h1 className="text-3xl text-center text-white">
         This action is not reversible. Still want to delete?
       </h1>

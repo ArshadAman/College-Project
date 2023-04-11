@@ -74,7 +74,6 @@ function AddProject() {
     formData.append("source_link", source_link);
     formData.append("tags", tags);
     formData.append("featured_image", featured_image);
-    console.log(formData);
 
     //Sending post request
     if (title.length > 3) {

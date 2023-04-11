@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import bglog from "../assets/banner.png";
-import dev from "../assets/devpic.png";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { getToken } from "../localStorage";
@@ -14,9 +12,12 @@ function ProjectDetials({ user }) {
   const { access_token } = getToken();
   const route = `http://127.0.0.1:8000/api/projects/${id}`;
   useEffect(() => {
-    axios.get(route).then((res) => {
-      setProjects(res.data);
-    });
+    async function getData(){
+      await axios.get(route).then((res) => {
+        setProjects(res.data);
+      });
+    }
+    getData();
   }, [success]);
 
   //Posting Review
@@ -24,7 +25,7 @@ function ProjectDetials({ user }) {
     setSelectedOption(event.target.value);
   };
 
-  const handleReview = (event, id) => {
+  const handleReview = async(event, id) => {
     event.preventDefault();
     let comment = document.getElementById("comment-box").value;
     const route = `http://127.0.0.1:8000/api/projects/${id}/vote/`;
@@ -34,7 +35,7 @@ function ProjectDetials({ user }) {
         body: comment,
       },
     ];
-    axios
+    await axios
       .post(route, data, {
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -71,6 +72,7 @@ function ProjectDetials({ user }) {
                 <a
                   href={project.source_link}
                   className="text-[#eb92d5] font-semibold"
+                  target="_blank"
                 >
                   Source Code
                 </a>
@@ -81,6 +83,7 @@ function ProjectDetials({ user }) {
                 <a
                   href={project.demo_link}
                   className="text-[#eb92d5] font-semibold"
+                  target="_blank"
                 >
                   Demo
                 </a>
@@ -126,7 +129,7 @@ function ProjectDetials({ user }) {
                     ></i>
                   </span>
                 </div>
-                <div className="comment-box py-5">
+                <div className="comment-box py-5 text-black font-semibold">
                   <textarea
                     name="comment-box"
                     id="comment-box"
@@ -141,7 +144,7 @@ function ProjectDetials({ user }) {
                     disabled={user.length == 0 || user.id == project.owner.id}
                   ></textarea>
                   {user.length == 0 ? (
-                    <p className="text-2xl">
+                    <p className="text-2xl text-white">
                       Please{" "}
                       <Link to="/login" className="text-[#eb92d5]">
                         Login
@@ -171,15 +174,7 @@ function ProjectDetials({ user }) {
                       className="py-2 px-2 bg-[a3aa] flex justify-between items-center space-x-3"
                       key={index}
                     >
-                      {/* <Link className="user-image">
-                        <img
-                          src={""}
-                          alt=""
-                          className="h-14 w-24 rounded-full"
-                        />
-                      </Link> */}
                       <div className="username-comment">
-                        {/* <p className="text-md font-semibold">{Rowner.name}</p> */}
                         <p className="">{r.body}</p>
                       </div>
                     </li>
@@ -194,7 +189,7 @@ function ProjectDetials({ user }) {
               <img
                 src={`http://127.0.0.1:8000${project.featured_image}`}
                 alt=""
-                className="h-[65vh] w-[920px]"
+                className="h-[65vh] w-[920px] shadow-sm"
               />
             </div>
             <div className="username text-2xl my-3 px-1 font-semibold text-[#918ced]">

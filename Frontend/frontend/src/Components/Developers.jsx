@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import avatar from "../assets/avatar.png";
-import Banner from "./Banner";
-import devV from "../assets/developers.mp4";
 import axios from "axios";
 import HashLoader from "react-spinners/HashLoader";
 import { Link } from "react-router-dom";
+import Banner from "./Banner";
 
 function Developers({ user }) {
   const [developers, setDevelopers] = useState([]);
@@ -117,7 +115,7 @@ function Developers({ user }) {
                 >
                   <div className="text-center flex flex-col justify-center font-semibold">
                     <h2 className="text-xl text-center">{deve.name}</h2>
-                    <p className="text-sm text-center">{deve.short_intro}</p>
+                    <p className="text-sm text-center">{deve.short_intro?deve.short_intro.slice(0,60):""}...</p>
                   </div>
                 </Link>
               </div>

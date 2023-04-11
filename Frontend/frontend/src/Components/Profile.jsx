@@ -72,7 +72,7 @@ function Profile({ user, projects, loading, blur }) {
             <div className="profile_details py-24">
               <div className="heading flex flex-col items-center">
                 <h1 className="text-3xl font-semibold">{user.name}</h1>
-                <h2 className="text-xl">
+                <h2 className="text-xl px-6 py-3">
                   {user.short_intro ? user.short_intro : ""}
                 </h2>
                 <h2 className="text-lg`">@{user.username}</h2>
@@ -116,7 +116,7 @@ function Profile({ user, projects, loading, blur }) {
                 )}
               </div>
               <div className="about">
-                {user.bio && user.bio!=""?<p className="px-16">{user.bio}</p>:""
+                {user.bio && user.bio!=""?<p className="px-6 py-5">{user.bio}</p>:""
                 }
               </div>
             </div>

@@ -9,15 +9,21 @@ function ProjectHomeCards({ user }) {
   const [devs, setDevs] = useState([]);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/top-rated-projects/").then((res) => {
-      setProjects(res.data);
-    });
+    async function getData(){
+      await axios.get("http://127.0.0.1:8000/api/top-rated-projects/").then((res) => {
+        setProjects(res.data);
+      });
+    }
+    getData();
   }, []);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/users/top-profile/").then((res) => {
-      setDevs(res.data);
-    });
+    async function getData(){
+      await axios.get("http://127.0.0.1:8000/api/users/top-profile/").then((res) => {
+        setDevs(res.data);
+      });
+    }
+    getData();
   }, []);
 
   function showMe(nameID, imgId) {
@@ -48,7 +54,7 @@ function ProjectHomeCards({ user }) {
               <img
                 src={`http://127.0.0.1:8000${project.featured_image}`}
                 alt={project.title}
-                className="object-cover rounded-t-md h-[270px]"
+                className="oobject-cover w-full rounded-t-md h-[270px]"
                 onMouseEnter={() => {
                   showMe(`pname${index + 1}`, `image${index + 1}`);
                 }}
@@ -72,7 +78,7 @@ function ProjectHomeCards({ user }) {
                 <div className="details">
                   <h2 className="text-2xl text-center">{project.title}</h2>
                   <ul className="flex space-x-2 text-sm justify-center">
-                    {project.tags.map((tag, index) => (
+                    {project.tags.slice(0,3).map((tag, index) => (
                       <li key={index + 1}>{tag.name}</li>
                     ))}
                   </ul>
@@ -124,7 +130,7 @@ function ProjectHomeCards({ user }) {
             className="flex justify-center"
           >
             <div
-              className="card w-52 bg-[#65d1ae] md:space-y-4 my-10 backdrop-blur-sm text-white backdrop-filter bg-opacity-100 rounded-full"
+              className="card w-52 md:space-y-4 my-10 backdrop-blur-sm text-white backdrop-filter bg-opacity-100 rounded-full"
               key={dev.id}
             >
               <div className="image shadow-md space-y-3 rounded-full backdrop-blur-sm backdrop-filter bg-opacity-10 text-white">
@@ -156,7 +162,7 @@ function ProjectHomeCards({ user }) {
                 >
                   <div className="text-center flex flex-col justify-center font-semibold">
                     <h2 className="text-xl text-center">{dev.name}</h2>
-                    <p className="text-sm text-center">{dev.short_intro}</p>
+                    <p className="text-sm text-center">{dev.short_intro?dev.short_intro.slice(0,60):""}...</p>
                   </div>
                 </Link>
               </div>

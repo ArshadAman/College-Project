@@ -110,7 +110,7 @@ function Projects() {
                   <div className="details">
                     <h2 className="text-2xl text-center">{project.title}</h2>
                     <ul className="flex space-x-2 text-sm justify-center">
-                      {project.tags.map((tag, index) => (
+                      {project.tags.slice(0,3).map((tag, index) => (
                         <li key={index + 1}>{tag.name}</li>
                       ))}
                     </ul>

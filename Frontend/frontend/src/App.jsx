@@ -67,7 +67,6 @@ function App() {
         <Route exact path="/delete-project/" element={<DeleteProject user={userdata} />}></Route>
         <Route exact path="/edit-profile/" element={<ProfileEdit user={userdata} />}></Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

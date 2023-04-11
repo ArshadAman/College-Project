@@ -8,10 +8,18 @@ function Search() {
   const [loading, setLoading] = useState(false);
   const [blur, setBlur] = useState(false);
 
+  // function trim(sin){
+  //   return sin[:20]
+  // }
+
+
   // Spinner
   const override = {
     display: "block",
     margin: "0 auto",
+    position: "absolute",
+    top:"50%",
+    z_index:"100"
   };
 
   //UseState and useEffect
@@ -33,7 +41,7 @@ function Search() {
   const getUsers = async () => {
     setLoading(true);
     setBlur(true);
-    axios
+    await axios
       .get(
         `http://127.0.0.1:8000/api/users/get-profiles/?search=${state.search}`
       )
@@ -66,6 +74,7 @@ function Search() {
   }
   return (
     <div className="flex flex-col items-center justify-center md:py-20 py-10 bg-[#20232c] text-white">
+      <h1 className="text-3xl text-center pb-12">Search Results</h1>
       <div>
         <HashLoader
           color={`#3e52c6`}
@@ -76,7 +85,6 @@ function Search() {
           data-testid="loader"
         />
       </div>
-      <h1 className="text-3xl text-center pb-12">Search Results</h1>
       <div className={`cards grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 md:gap-10 gap-6 place ${blur?'blur-sm':'blur-none'}`}>
         {projects.map((project, index) => (
           <Link
@@ -110,9 +118,9 @@ function Search() {
                 }}
               >
                 <div className="details">
-                  <h2 className="text-2xl text-center">{project.title}</h2>
-                  <ul className="flex space-x-2 text-sm justify-center">
-                    {project.tags.map((tag, index) => (
+                  <h2 className="text-2xl text-center font-semibold">{project.title}</h2>
+                  <ul className="flex space-x-2 text-sm justify-center font-semibold">
+                  {project.tags.slice(0,3).map((tag, index) => (
                       <li key={index + 1}>{tag.name}</li>
                     ))}
                   </ul>
@@ -175,7 +183,7 @@ function Search() {
                 >
                   <div className="text-center flex flex-col justify-center font-semibold">
                     <h2 className="text-xl text-center">{dev.name}</h2>
-                    <p className="text-sm text-center">{dev.short_intro}</p>
+                    <p className="text-sm text-center">{dev.short_intro.slice(0,60)}...</p>
                   </div>
                 </Link>
               </div>
